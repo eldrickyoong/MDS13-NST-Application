@@ -48,14 +48,24 @@ body {
   align-items: center;
   text-align: center;
   padding: 20px;
+  flex-wrap: wrap; /* allows word wrapping */
 }
 
 .content h1{
   font-style: italic;
   font-weight: 300; 
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 5vw, 3.5rem); /* responsive font size */
   line-height: 0.1;   
   margin-bottom: 0.5em;
+  word-break: break-word; /* helps long text break */
+}
+
+.content h2 {
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 0.5;
+  margin: 0.5em;
 }
 
 .btn {

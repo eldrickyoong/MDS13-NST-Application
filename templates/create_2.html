@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Artwork</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style_2.css') }}">
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">🎨</div>
+      <nav class="nav-links">
+        <a class="active" href="#">Home</a>
+        <a href="#">Inspiration</a>
+        <a href="#">My Gallery</a>
+        <a href="#">Connect with developer</a>
+        <a href="#">Settings</a>
+      </nav>
+      <button class="logout">Logout</button>
+    </aside>
+
+    <main class="main">
+      <div class="upload-section">
+        <div class="upload-box">
+          <input type="file" id="content-upload" hidden>
+          <div class="upload-wrapper">
+            <label for="content-upload" class="upload-label" id="label-content">
+              <img src="https://img.icons8.com/ios/50/image--v1.png"/>
+              <p><span class="click">Click to upload</span> or drag and drop<br>JPG, JPEG, PNG less than 1MB</p>
+            </label>
+            <img id="preview-content" class="preview" style="display: none;" />
+          </div>
+        </div>
+        <div class="upload-box">
+          <input type="file" id="style-upload" hidden>
+          <div class="upload-wrapper">
+            <label for="style-upload" class="upload-label" id="label-style">
+              <img src="https://img.icons8.com/ios/50/image--v1.png"/>
+            </label>
+            <img id="preview-style" class="preview" style="display: none;" />
+          </div>
+        </div>
+      </div>
+      <div id="result-container" style="margin-top: 30px; display: none;">
+        <h3>Stylized Result:</h3>
+        <img id="stylized-image" style="max-width: 100%; display: none; border-radius: 10px;" alt="Generated artwork" />
+      </div>
+
+      <div class="customize-panel">
+        <h3>Customize</h3>
+        <div class="section">
+          <p>DIMENSIONS</p>
+          <hr>
+        </div>
+        <div class="section">
+          <p>STYLES</p>
+          <div id="style-gallery" class="style-gallery"></div>
+        </div>
+        <input type="hidden" name="style_path" id="selected-style-path" />
+        <button type="button" class="generate" onclick="generateStylizedImage()">Generate</button>
+      </div>
+    </main>
+  </div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
