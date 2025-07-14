@@ -21,30 +21,41 @@
     </aside>
 
     <main class="main">
-      <div class="upload-section">
-        <div class="upload-box">
-          <input type="file" id="content-upload" hidden>
-          <div class="upload-wrapper">
-            <label for="content-upload" class="upload-label" id="label-content">
-              <img src="https://img.icons8.com/ios/50/image--v1.png"/>
-              <p><span class="click">Click to upload</span> or drag and drop<br>JPG, JPEG, PNG less than 1MB</p>
-            </label>
-            <img id="preview-content" class="preview" style="display: none;" />
+      <div class="center-panel">
+
+        <div class="upload-section">
+          
+          <div class="upload-box" id="content-box">
+            <input type="file" id="content-upload" hidden>
+            <div class="upload-wrapper">
+              <label for="content-upload" class="upload-label" id="label-content">
+                <img src="https://img.icons8.com/ios/50/image--v1.png"/>
+                <p><span class="click">Click to upload</span> or drag and drop<br>JPG, JPEG, PNG less than 1MB</p>
+              </label>
+              <img id="preview-content" class="preview" style="display: none;" />
+            </div>
+          </div>
+
+          <div class="upload-box" id="style-box">
+            <input type="file" id="style-upload" hidden>
+            <div class="upload-wrapper">
+              <label for="style-upload" class="upload-label" id="label-style">
+                <img src="https://img.icons8.com/ios/50/image--v1.png"/>
+              </label>
+              <img id="preview-style" class="preview" style="display: none;" />
+            </div>
           </div>
         </div>
-        <div class="upload-box">
-          <input type="file" id="style-upload" hidden>
-          <div class="upload-wrapper">
-            <label for="style-upload" class="upload-label" id="label-style">
-              <img src="https://img.icons8.com/ios/50/image--v1.png"/>
-            </label>
-            <img id="preview-style" class="preview" style="display: none;" />
-          </div>
+
+        <div id="progress-bar-container" style="display: none; margin: 20px auto; width: 80%;">
+          <label for="progress-bar" style="display: block; text-align: center; margin-bottom: 5px;">Generating...</label>
+          <progress id="progress-bar" value="0" max="100" style="width: 100%; height: 20px;"></progress>
         </div>
-      </div>
-      <div id="result-container" style="margin-top: 30px; display: none;">
-        <h3>Stylized Result:</h3>
-        <img id="stylized-image" style="max-width: 100%; display: none; border-radius: 10px;" alt="Generated artwork" />
+
+        <div id="result-container" class="result-container">
+          <h3>Stylized Result:</h3>
+          <img id="stylized-image" alt="Generated artwork" />
+        </div>
       </div>
 
       <div class="customize-panel">
@@ -53,8 +64,21 @@
           <p>DIMENSIONS</p>
           <hr>
         </div>
+
         <div class="section">
-          <p>STYLES</p>
+          <input type="hidden" name="model_name" id="selected-model-name" value="johnson_fast_style" />
+          <p>MODEL</p>
+          <select id="model-selector" class="model-selector">
+          <option value="johnson_fast_style">Johnson (Fast)</option>
+          <option value="gatys_iterative_style">Gatys (Iterative)</option>
+        </select>
+          
+        <div class="section">
+          <div class="section-header">
+            <p>STYLES</p>
+            <button id="toggle-style-btn" class="toggle-style-btn">▲</button>
+          </div>
+
           <div id="style-gallery" class="style-gallery"></div>
         </div>
         <input type="hidden" name="style_path" id="selected-style-path" />

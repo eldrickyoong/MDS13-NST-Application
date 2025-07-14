@@ -67,13 +67,47 @@ body {
   gap: 30px;
 }
 
+.center-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* ✅ Vertically center content */
+  min-height: 100%;        /* ✅ Let it fill available space */
+  padding-bottom: 60px;    /* Optional: spacing for result image */
+}
+
 /* Upload boxes */
 .upload-section {
   display: flex;
-  flex: 2;
-  gap: 30px;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  gap: 40px;
+  transition: transform 0.5s ease;
+  margin-bottom: 20px;
+}
+
+.result-container {
+  display: none;
+  text-align: center;
+  margin-top: -40px;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.result-container img {
+  max-width: 90%;
+  max-height: 400px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.shift-up {
+  transform: translateY(-50px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .upload-box {
@@ -144,6 +178,16 @@ body {
   margin-bottom: 10px;
 }
 
+.model-selector {
+  width: 100%;
+  padding: 6px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: #1a1d3c;
+  color: white;
+  border: 1px solid #444;
+}
+
 .style-list {
   list-style: none;
   padding: 0;
@@ -186,6 +230,34 @@ body {
   border: 2px solid #4f9dfb;
 }
 
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-style-btn {
+  background: none;
+  border: none;
+  color: #bbb;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.style-gallery.collapsed {
+  display: none;
+}
+
+#progress-bar {
+  transition: width 0.3s ease;
+}
+
+#progress-bar-container {
+  text-align: center;
+}
+
+
 .generate {
   margin-top: 20px;
   background: #007bff;
@@ -195,13 +267,5 @@ body {
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-}
-
-/* used for testing */
-img {
-  display: block !important;
-  width: 100px;
-  height: auto;
-  border: 2px solid red;
 }
 
