@@ -1,0 +1,111 @@
+/* =============================================
+   Main Panel
+============================================= */
+.main {
+  flex: 1;
+  display: flex;
+}
+
+.center-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding-bottom: 60px;
+}
+
+/* Upload Section */
+.upload-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-bottom: 20px;
+  transition: transform 0.5s ease;
+}
+
+.upload-box,
+.dropzone {
+  background: linear-gradient(to bottom right, #0a0d2a, #1e2746);
+  border: 2px dashed #3c4a6e;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 300px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upload-box:hover,
+.dropzone:hover {
+  border-color: #4f9dfb;
+  box-shadow: 0 0 15px rgba(79, 157, 251, 0.2);
+  transform: translateY(-2px);
+}
+
+.upload-label,
+.dropzone-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ccc;
+  text-align: center;
+}
+
+.upload-label img,
+.upload-icon {
+  width: 60px;
+  opacity: 0.6;
+  margin-bottom: 12px;
+  transition: transform 0.3s ease;
+}
+
+.upload-box:hover .upload-label img,
+.dropzone:hover .upload-icon {
+  transform: scale(1.05);
+}
+
+.click {
+  color: #4f9dfb;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  margin-top: 10px;
+  display: block;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  object-fit: contain;
+}
+
+.remove-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: #c0392b;
+}

@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Artwork</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="logo">🎨</div>
+      <nav class="nav-links">
+        <a class="active" href="#">Home</a>
+        <a href="#">Inspiration</a>
+        <a href="#">My Gallery</a>
+        <a href="#">Connect with developer</a>
+        <a href="#">Settings</a>
+      </nav>
+      <button class="logout">Logout</button>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main">
+
+      <!-- Center Panel for Uploads & Result -->
+      <div class="center-panel">
+
+        <!-- Upload Section: Content & Style Images -->
+        <div class="upload-section">
+
+          <!-- Content Upload Box -->
+          <div class="dropzone" id="dropzone-content">
+            <input type="file" id="content-upload" class="file-input" accept="image/*" hidden>
+            <div class="dropzone-display" id="dropzone-display">
+              <img src="{% static 'icons/image_icon_white.svg' %}" alt="Image Icon" class="upload-icon" />
+              <p><span class="click">Click to upload</span> or drag & drop</p>
+              <small>JPG, JPEG, PNG under 1MB</small>
+            </div>
+            <div class="preview-container" id="preview-container" style="display: none;">
+              <img id="preview-image" class="preview" />
+              <p id="file-name" class="file-name"></p>
+              <button type="button" class="remove-btn" id="remove-btn">Remove</button>
+            </div>
+          </div>
+
+          <!-- Style Upload Box -->
+          <div class="upload-box" id="style-box">
+            <input type="file" id="style-upload" hidden>
+            <div class="upload-wrapper">
+              <label for="style-upload" class="upload-label" id="label-style">
+                <img src="https://img.icons8.com/ios/50/image--v1.png" alt="Upload Style Icon"/>
+              </label>
+              <img id="preview-style" class="preview" style="display: none;" />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Stylized Output Result -->
+        <div id="result-container" class="result-container">
+          <h3>Stylized Result:</h3>
+          <img id="stylized-image" alt="Generated artwork" />
+        </div>
+      </div>
+
+      <!-- Customization Sidebar -->
+      <div class="customize-panel">
+        <div class="customize-content">
+
+          <h3 class="panel-header">Output customization</h3>
+
+          <!-- Output Size Slider -->
+          <div class="section">
+            <p>Size (px)</p>
+            <div class="slider-group">
+              <label for="dimension-slider">Dimension</label>
+              <input type="range" id="dimension-slider" min="256" max="1024" step="32" value="512" />
+              <input type="number" id="dimension-value" value="512" readonly />
+            </div>
+          </div>
+
+          <!-- Model Selection -->
+          <div class="section">
+            <input type="hidden" name="model_name" id="selected-model-name" value="johnson_fast_style" />
+            <p>Models</p>
+            <select id="model-selector" class="model-selector">
+              <option value="johnson_fast_style">Johnson (Fast)</option>
+              <option value="gatys_iterative_style">Gatys (Iterative)</option>
+            </select>
+          </div>
+
+          <!-- Style Gallery Section -->
+          <button class="section-toggle" aria-expanded="false" onclick="toggleStyleSection(this)">
+            <span>Styles</span>
+            <img src="{% static 'icons/angle-small-left-white.svg' %}" alt="Expand Styles" class="expand-icon" />
+          </button>
+
+          <div class="style-gallery-wrapper collapsed" id="style-gallery">
+            <div class="style-gallery"></div>
+          </div>
+
+          <input type="hidden" name="style_path" id="selected-style-path" />
+        </div>
+
+        <!-- Generate and Clear Buttons -->
+        <div class="customize-footer">
+          <button type="button" class="generate" onclick="generateStylizedImage()">Generate</button>
+          <button type="button" class="clear-btn" onclick="confirmClear()">Clear</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="{% static 'js/script.js' %}"></script>
+
+  <!-- Confirmation Modal -->
+  <div id="clear-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <h4>Clear All Settings?</h4>
+      <p>This will remove all uploads and reset customization. Continue?</p>
+      <div class="modal-buttons">
+        <button onclick="executeClear()">Yes, Clear</button>
+        <button onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

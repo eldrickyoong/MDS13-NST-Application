@@ -1,0 +1,41 @@
+/* =============================================
+   Customize Panel Footer
+============================================= */
+
+.customize-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #333;
+  background: #0f112d;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.generate,
+.clear-btn {
+  width: 95%;
+  height: 5vh;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  border: none;
+}
+
+.generate {
+  background: #007bff;
+  color: white;
+}
+
+.generate:hover {
+  background: #006de0;
+}
+
+.clear-btn {
+  background: #6c757d;
+  color: white;
+}
+
+.clear-btn:hover {
+  background: #5a6268;
+}

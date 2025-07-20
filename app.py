@@ -19,8 +19,6 @@ gatys_config = {
 }
 
 app = Flask(__name__)
-UPLOAD_FOLDER = "uploads"
-OUTPUT_PATH = "static/stylized.png"
 
 @app.route("/create")
 def create():

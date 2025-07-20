@@ -1,0 +1,68 @@
+/* =============================================
+   Style Gallery
+============================================= */
+.section-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.section-toggle span {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.expand-icon {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+  margin-left: auto;
+}
+
+.section-toggle[aria-expanded="true"] .expand-icon {
+  transform: rotate(-90deg);
+}
+
+.style-gallery-wrapper {
+  max-height: 500px;
+  overflow-y: auto;
+  transition: max-height 0.3s ease;
+}
+
+.style-gallery-wrapper.collapsed {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.style-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.style-gallery.collapsed {
+  display: none;
+}
+
+.style-thumb {
+  width: 25%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border 0.2s;
+}
+
+.style-thumb:hover,
+.style-thumb.selected {
+  border: 2px solid #4f9dfb;
+}
