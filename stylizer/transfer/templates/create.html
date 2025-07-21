@@ -67,10 +67,11 @@
             <h3 class="upload-title">Style</h3>
 
             <div class="upload-area" id="style-box">
+              <input type="hidden" id="selected-style-path" name="style_path">
               <input type="file" id="style-upload" hidden>
 
               <!-- Before upload -->
-              <div class="upload-inner" id="upload-content-style">
+              <div class="upload-inner" id="upload-style-display">
                 <img src="{% static 'icons/palette-white.svg' %}" alt="Palette Icone" />
                 <p class="upload-note">Click to upload or drag & drop</p>
               </div>

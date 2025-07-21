@@ -51,7 +51,6 @@ async function generateStylizedImage() {
   }
 }
 
-
 /**
  * ========== Style Thumbnails ========== 
  */
@@ -61,9 +60,6 @@ function loadStyleThumbnails(modelName) {
     .then(images => {
       const gallery = document.getElementById("style-gallery");
       gallery.innerHTML = "";
-
-      const preview = document.getElementById("preview-image-style");
-      const label = document.getElementById("upload-content-style");
       const hiddenInput = document.getElementById("selected-style-path");
 
       images.forEach((src) => {
@@ -74,9 +70,7 @@ function loadStyleThumbnails(modelName) {
         img.addEventListener("click", () => {
           document.querySelectorAll(".style-thumb").forEach(el => el.classList.remove("selected"));
           img.classList.add("selected");
-          preview.src = src;
-          preview.style.display = "block";
-          label.style.display = "none";
+          showPreview(src, "style");
           hiddenInput.value = src;
         });
 
@@ -92,22 +86,10 @@ function loadStyleThumbnails(modelName) {
 
 function setupUploadCard({
   areaId,
-  dropAreaSelectorId,
-  previewId,
-  labelId,
-  fileNameId = null,
-  containerId = null,
+  dropAreaSelectorId
 }) {
   const input = document.getElementById(areaId);
-  const dropArea = typeof dropAreaSelectorId === "string"
-    ? document.querySelector(dropAreaSelectorId)
-    : dropAreaSelectorId;
-
-  const label = document.getElementById(labelId);
-  const fileName = fileNameId ? document.getElementById(fileNameId) : null;
-  const container = containerId ? document.getElementById(containerId) : null;
-
-  // check if event is coming from style or content box
+  const dropArea = document.getElementById(dropAreaSelectorId);
   const type = areaId.includes("style") ? "style" : "content";
 
   // click listener
@@ -129,40 +111,59 @@ function setupUploadCard({
     const file = e.dataTransfer.files[0];
     if (!file) return;
     input.files = e.dataTransfer.files;
-    showPreview(file);
+    showPreview(file, type);
   });
   
   // Input change
   input.addEventListener("change", () => {
     if (!input.files.length) return;
-    showPreview(input.files[0]);
+    showPreview(input.files[0], type);
   });
 
-  // --- Preview Logic ---
-  function showPreview(file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = document.getElementById(previewId);
-      img.src = e.target.result;
-      img.style.display = "block";
-      if (label) label.style.display = "none";
-      if (fileName) fileName.textContent = file.name;
-      if (container) container.style.display = "flex";
+}
 
-      // Wait until the image is fully loaded before reading dimensions
-      img.onload = () => {
-        const width = img.naturalWidth;
-        const height = img.naturalHeight;
-        fileName.textContent = `${file.name} (${width}×${height})`;
-      };
+// --- Preview Logic ---
+function showPreview(input, type) {
+  const previewId = `preview-image-${type}`;
+  const label = document.getElementById(`upload-${type}-display`);
+  const fileName = document.getElementById(`file-name-${type}`);
+  const container = document.getElementById(`preview-container-${type}`);
+  const dropAreaSelectorId = `${type}-box`;
 
-      // Show the overlay + mark as active
-      document.getElementById(dropAreaSelectorId).classList.add("has-image");
+  const img = document.getElementById(previewId);
+
+  const setImage = (src, name) => {
+    let imgName = name;
+
+    // if image is from a style thumbnail, extract from the url
+    if (typeof input === "string") imgName = src.split("/").pop();
+    if (img) img.src = src;
+    img.style.display = "block";
+    if (label) label.style.display = "none";
+    if (container) container.style.display = "flex";
+
+    img.onload = () => {
+      const width = img.naturalWidth;
+      const height = img.naturalHeight;
+      if (fileName) fileName.textContent = `${imgName} (${width}×${height})`;
     };
-    reader.readAsDataURL(file);
+
+    // Show the overlay + mark as active
+    document.getElementById(dropAreaSelectorId).classList.add("has-image");
+  };
+
+  if (typeof input === "string") {
+    // input is a URL
+    setImage(input, "Style");
+  } else {
+    // input is a File
+    const reader = new FileReader();
+    reader.onload = (e) => setImage(e.target.result, input.name);
+    reader.readAsDataURL(input);
   }
 }
 
+// -- Reset Upload Logic ---
 function resetUpload(type) {
   document.getElementById(`${type}-upload`).value = "";
   document.getElementById(`preview-image-${type}`).src = "";
@@ -209,7 +210,7 @@ function resetAll() {
   resetDropzone();
   document.getElementById("style-upload").value = "";
   document.getElementById("preview-image-style").style.display = "none";
-  document.getElementById("selected-style-path").value = "";
+  document.getElementById("style-upload").value = "";
   document.getElementById("style-gallery").innerHTML = "";
 
   modelSelector.selectedIndex = 0;
@@ -260,20 +261,12 @@ window.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("DOMContentLoaded", () => {
   setupUploadCard({
     areaId: "content-upload", 
-    dropAreaSelectorId: "content-box",
-    previewId: "preview-image-content",
-    labelId: "upload-content-display",
-    fileNameId: "file-name-content",
-    containerId: "preview-container-content",
+    dropAreaSelectorId: "content-box"
   });
 
   setupUploadCard({
     areaId: "style-upload",
-    dropAreaSelectorId: "style-box", 
-    previewId: "preview-image-style",
-    labelId: "upload-content-style",
-    fileNameId: "file-name-style",
-    containerId: "preview-container-style"
+    dropAreaSelectorId: "style-box",
   });
 
   // Load styles when a model is selected
