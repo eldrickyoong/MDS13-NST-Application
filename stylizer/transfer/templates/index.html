@@ -4,24 +4,31 @@
 <head>
   <meta charset="UTF-8">
   <title>Home - AI Image Style Transfer</title>
-  <link rel="stylesheet" href="{% static 'css/style_2.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link href="https://fonts.cdnfonts.com/css/open-sauce-one" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <nav class="navbar">
-    <div class="logo">AI Image Style Transfer</div>
+    <div class="logo">
+      <a href="{% url 'index' %}">Dream Render</a>
+    </div>
     <div class="nav-links">
-      <a href="{% url 'index' %}">Home</a>
-      <a href="{% url 'create' %}">Create</a>
+      <a href="{% url 'index' %}">Inspiration</a>
+      <a href="{% url 'create' %}">My Gallery</a>
+      <a href="{% url 'create' %}">Login</a>
       <a href="{% url 'about' %}">About Us</a>
     </div>
   </nav>
 
   <div class="content">
-    <h1>Welcome.</h1>
-    <h2>Embark on your artwork journey with us.</h2>
+    <div class="text-block">
+      <h1>AI-powered art,</h1>
+      <h2>made by you.</h2>
+    </div>
     <!-- Replace all href="./create.html" with -->
-    <a href="{% url 'create' %}">Start Creating</a>
+    <a href="{% url 'create' %}" class="start-btn">CREATE NOW</a>
   </div>
 
 </body>

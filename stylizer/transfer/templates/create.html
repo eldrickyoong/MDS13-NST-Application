@@ -10,18 +10,17 @@
 <body>
   <div class="container">
 
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-      <div class="logo">🎨</div>
-      <nav class="nav-links">
-        <a class="active" href="#">Home</a>
-        <a href="#">Inspiration</a>
-        <a href="#">My Gallery</a>
-        <a href="#">Connect with developer</a>
-        <a href="#">Settings</a>
-      </nav>
-      <button class="logout">Logout</button>
-    </aside>
+    <nav class="navbar">
+      <div class="logo">
+        <a href="{% url 'index' %}">Dream Render</a>
+      </div>
+      <div class="nav-links">
+        <a href="{% url 'index' %}">Inspiration</a>
+        <a href="{% url 'create' %}">My Gallery</a>
+        <a href="{% url 'create' %}">Login</a>
+        <a href="{% url 'about' %}">About Us</a>
+      </div>
+    </nav>
 
     <!-- Main Content Area -->
     <main class="main">
