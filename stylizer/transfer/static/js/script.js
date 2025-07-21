@@ -14,11 +14,9 @@ const contentInput = document.getElementById("content-upload");
 const modelSelector = document.getElementById("model-selector");
 const modelInput = document.getElementById("selected-model-name");
 const fileInput = document.getElementById("content-upload");
-const previewImage = document.getElementById("preview-image");
-const previewContainer = document.getElementById("preview-container");
-const dropzone = document.getElementById("dropzone-content");
-const dropzoneDisplay = document.getElementById("dropzone-display");
-const fileName = document.getElementById("file-name");
+const previewImage = document.getElementById("preview-image-content");
+const previewContainer = document.getElementById("preview-container-content");
+const fileName = document.getElementById("file-name-content");
 
 
 /**
@@ -64,22 +62,14 @@ function loadStyleThumbnails(modelName) {
       const gallery = document.getElementById("style-gallery");
       gallery.innerHTML = "";
 
-      const preview = document.getElementById("preview-style");
-      const label = document.getElementById("label-style");
+      const preview = document.getElementById("preview-image-style");
+      const label = document.getElementById("upload-content-style");
       const hiddenInput = document.getElementById("selected-style-path");
 
-      images.forEach((src, index) => {
+      images.forEach((src) => {
         const img = document.createElement("img");
         img.src = src;
         img.classList.add("style-thumb");
-
-        if (index === 0) {
-          img.classList.add("selected");
-          preview.src = src;
-          preview.style.display = "block";
-          label.style.display = "none";
-          if (hiddenInput) hiddenInput.value = src;
-        }
 
         img.addEventListener("click", () => {
           document.querySelectorAll(".style-thumb").forEach(el => el.classList.remove("selected"));
@@ -96,58 +86,93 @@ function loadStyleThumbnails(modelName) {
     .catch(err => console.error("Failed to load style images:", err));
 }
 
-
 /**
- * ========== Dropzone and Preview ========== 
+ * ========== Upload Function ========== 
  */
-document.getElementById("remove-btn").addEventListener("click", (e) => {
-  e.stopPropagation();
-  resetDropzone();
-});
 
-dropzone.addEventListener("click", () => fileInput.click());
+function setupUploadCard({
+  areaId,
+  dropAreaSelectorId,
+  previewId,
+  labelId,
+  fileNameId = null,
+  containerId = null,
+}) {
+  const input = document.getElementById(areaId);
+  const dropArea = typeof dropAreaSelectorId === "string"
+    ? document.querySelector(dropAreaSelectorId)
+    : dropAreaSelectorId;
 
-dropzone.addEventListener("dragover", (e) => {
-  e.preventDefault();
-  dropzone.classList.add("dragover");
-});
+  const label = document.getElementById(labelId);
+  const fileName = fileNameId ? document.getElementById(fileNameId) : null;
+  const container = containerId ? document.getElementById(containerId) : null;
 
-dropzone.addEventListener("dragleave", () => {
-  dropzone.classList.remove("dragover");
-});
+  // check if event is coming from style or content box
+  const type = areaId.includes("style") ? "style" : "content";
 
-dropzone.addEventListener("drop", (e) => {
-  e.preventDefault();
-  dropzone.classList.remove("dragover");
-  fileInput.files = e.dataTransfer.files;
-  handlePreview(fileInput.files[0]);
-});
+  // click listener
+  dropArea.addEventListener("click", () => input.click());
 
-fileInput.addEventListener("change", () => {
-  if (fileInput.files.length > 0) {
-    handlePreview(fileInput.files[0]);
+  // drag & drop listener
+  dropArea.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropArea.classList.add("dragover");
+  });
+
+  dropArea.addEventListener("dragleave", () => {
+    dropArea.classList.remove("dragover");
+  });
+
+  dropArea.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropArea.classList.remove("dragover");
+    const file = e.dataTransfer.files[0];
+    if (!file) return;
+    input.files = e.dataTransfer.files;
+    showPreview(file);
+  });
+  
+  // Input change
+  input.addEventListener("change", () => {
+    if (!input.files.length) return;
+    showPreview(input.files[0]);
+  });
+
+  // --- Preview Logic ---
+  function showPreview(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = document.getElementById(previewId);
+      img.src = e.target.result;
+      img.style.display = "block";
+      if (label) label.style.display = "none";
+      if (fileName) fileName.textContent = file.name;
+      if (container) container.style.display = "flex";
+
+      // Wait until the image is fully loaded before reading dimensions
+      img.onload = () => {
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+        fileName.textContent = `${file.name} (${width}×${height})`;
+      };
+
+      // Show the overlay + mark as active
+      document.getElementById(dropAreaSelectorId).classList.add("has-image");
+    };
+    reader.readAsDataURL(file);
   }
-});
-
-function handlePreview(file) {
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    previewImage.src = e.target.result;
-    fileName.textContent = file.name;
-    dropzoneDisplay.style.display = "none";
-    previewContainer.style.display = "flex";
-  };
-  reader.readAsDataURL(file);
 }
 
-function resetDropzone() {
-  fileInput.value = "";
-  dropzoneDisplay.style.display = "flex";
-  previewContainer.style.display = "none";
-  previewImage.src = "";
-  fileName.textContent = "";
-}
+function resetUpload(type) {
+  document.getElementById(`${type}-upload`).value = "";
+  document.getElementById(`preview-image-${type}`).src = "";
+  document.getElementById(`preview-container-${type}`).style.display = "none";
+  document.getElementById(`upload-${type}-display`).style.display = "flex";
+  document.getElementById(`file-name-${type}`).textContent = "";
 
+  // remove overlay trigger
+  document.getElementById(`${type}-box`).classList.remove("has-image");
+}
 
 /**
  * ========== Range Sync ==========
@@ -183,7 +208,7 @@ function executeClear() {
 function resetAll() {
   resetDropzone();
   document.getElementById("style-upload").value = "";
-  document.getElementById("preview-style").style.display = "none";
+  document.getElementById("preview-image-style").style.display = "none";
   document.getElementById("selected-style-path").value = "";
   document.getElementById("style-gallery").innerHTML = "";
 
@@ -209,37 +234,54 @@ function toggleStyleSection(button) {
   }
 }
 
-
 /**
  * ========== Init ==========
  */
 window.addEventListener("DOMContentLoaded", () => {
-  function previewImage(id, previewId, labelId) {
-    const input = document.getElementById(id);
-    const preview = document.getElementById(previewId);
-    const label = document.getElementById(labelId);
-
-    input.addEventListener("change", () => {
-      const file = input.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        preview.src = e.target.result;
-        preview.style.display = "block";
-        label.style.display = "none";
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-
-  previewImage("content-upload", "preview-content", "label-content");
-  previewImage("style-upload", "preview-style", "label-style");
 
   modelSelector.addEventListener("change", () => {
     modelInput.value = modelSelector.value;
     loadStyleThumbnails(modelSelector.value);
   });
 
+  loadStyleThumbnails(modelSelector.value);
+
+  document.getElementById("full-overlay-content").addEventListener("click", (e) => {
+    e.stopPropagation();
+    resetUpload("content");
+  });
+
+  document.getElementById("full-overlay-style").addEventListener("click", (e) => {
+    e.stopPropagation();
+    resetUpload("style");
+  });
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  setupUploadCard({
+    areaId: "content-upload", 
+    dropAreaSelectorId: "content-box",
+    previewId: "preview-image-content",
+    labelId: "upload-content-display",
+    fileNameId: "file-name-content",
+    containerId: "preview-container-content",
+  });
+
+  setupUploadCard({
+    areaId: "style-upload",
+    dropAreaSelectorId: "style-box", 
+    previewId: "preview-image-style",
+    labelId: "upload-content-style",
+    fileNameId: "file-name-style",
+    containerId: "preview-container-style"
+  });
+
+  // Load styles when a model is selected
+  modelSelector.addEventListener("change", () => {
+    modelInput.value = modelSelector.value;
+    loadStyleThumbnails(modelSelector.value);
+  });
+
+  // Initial load
   loadStyleThumbnails(modelSelector.value);
 });

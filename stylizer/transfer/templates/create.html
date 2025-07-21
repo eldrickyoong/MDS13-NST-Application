@@ -33,28 +33,61 @@
         <div class="upload-section">
 
           <!-- Content Upload Box -->
-          <div class="dropzone" id="dropzone-content">
-            <input type="file" id="content-upload" class="file-input" accept="image/*" hidden>
-            <div class="dropzone-display" id="dropzone-display">
-              <img src="{% static 'icons/image_icon_white.svg' %}" alt="Image Icon" class="upload-icon" />
-              <p><span class="click">Click to upload</span> or drag & drop</p>
-              <small>JPG, JPEG, PNG under 1MB</small>
-            </div>
-            <div class="preview-container" id="preview-container" style="display: none;">
-              <img id="preview-image" class="preview" />
-              <p id="file-name" class="file-name"></p>
-              <button type="button" class="remove-btn" id="remove-btn">Remove</button>
+          <div class="upload-card">
+            <h3 class="upload-title">Content</h3>
+
+            <div class="upload-area" id="content-box" >
+              <input type="file" id="content-upload" class="file-input" accept="image/*" hidden>
+
+              <!-- Upload Content Display (shown before upload) -->
+              <div class="upload-inner" id="upload-content-display">
+                <img src="{% static 'icons/image_icon_white.svg' %}" alt="Image Icon" />
+                <p class="upload-note">Click to upload or drag & drop</p>
+              </div>
+
+              <!-- Preview container (shown after upload) -->
+              <div class="preview-container" id="preview-container-content" style="display: none;">
+                <div class="preview-frame">
+                  <img id="preview-image-content" class="preview" />
+                </div>
+                <p id="file-name-content" class="file-name"></p>
+              </div>
+
+                <!-- Red overlay covering the entire area (including the padding) -->
+              <div class="full-overlay" id="full-overlay-content">
+                <img src="{% static 'icons/cross-red.svg' %}" alt="Remove Icone" />
+                <p class="remove-note">Click to remove image</p>
+              </div>
             </div>
           </div>
 
+
           <!-- Style Upload Box -->
-          <div class="upload-box" id="style-box">
-            <input type="file" id="style-upload" hidden>
-            <div class="upload-wrapper">
-              <label for="style-upload" class="upload-label" id="label-style">
-                <img src="https://img.icons8.com/ios/50/image--v1.png" alt="Upload Style Icon"/>
-              </label>
-              <img id="preview-style" class="preview" style="display: none;" />
+          <div class="upload-card">
+            <h3 class="upload-title">Style</h3>
+
+            <div class="upload-area" id="style-box">
+              <input type="file" id="style-upload" hidden>
+
+              <!-- Before upload -->
+              <div class="upload-inner" id="upload-content-style">
+                <img src="{% static 'icons/palette-white.svg' %}" alt="Palette Icone" />
+                <p class="upload-note">Click to upload or drag & drop</p>
+              </div>
+
+              <!-- Preview container (shown after style upload)-->
+              <div class="preview-container" id="preview-container-style" style="display: none;">
+                <div class="preview-frame">
+                  <img id="preview-image-style" class="preview" />
+                </div>
+                <p id="file-name-style" class="file-name"></p>
+              </div>
+
+              <!-- Red overlay covering the entire area (including the padding) -->
+              <div class="full-overlay" id="full-overlay-style">
+                <img src="{% static 'icons/cross-red.svg' %}" alt="Remove Icone" />
+                <p class="remove-note">Click to remove image</p>
+              </div>
             </div>
           </div>
 
