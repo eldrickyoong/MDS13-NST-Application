@@ -8,16 +8,6 @@ from style_transfer_models.johnson_fast_style.inference import stylize_image_pil
 from style_transfer_models.gatys_iterative_style.inference import neural_style_transfer_from_pil
 
 
-gatys_config = {
-    "height": 400,
-    "content_weight": 1e5,
-    "style_weight": 3e4,
-    "tv_weight": 1e0,
-    "optimizer": "lbfgs",
-    "model": "vgg19",
-    "init_method": "content",
-}
-
 app = Flask(__name__)
 
 @app.route("/create")
