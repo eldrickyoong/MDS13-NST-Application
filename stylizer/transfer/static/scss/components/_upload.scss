@@ -18,16 +18,24 @@
 
 /* Upload Section */
 .upload-section {
+  --upload-section-size: 800px;
+  width: var(--upload-section-size);
   display: flex;
   justify-content: center;
   align-items: flex-start;
   gap: 40px;
-  margin-bottom: 20px;
-  transition: transform 0.5s ease;
+  transition: transform 0.2s ease, width 0.5s ease;
+}
+
+.upload-section.shift-up {
+  transform: translateY(-50px);
+}
+.upload-section.shrink {
+  --upload-section-size: 550px;
 }
 
 .upload-card {
-  width: 280px;
+  width: var(--upload-section-size);
   aspect-ratio: 1 / 1.25;
   background: linear-gradient(135deg, #111831, #1a2543);
   border-radius: 1.5rem;
@@ -72,6 +80,8 @@
     =============================================*/
   
     .upload-inner {
+      width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;

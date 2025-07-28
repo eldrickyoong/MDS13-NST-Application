@@ -11,8 +11,7 @@ const resultContainer = document.getElementById("result-container");
 const resultImage = document.getElementById("stylized-image");
 const uploadSection = document.querySelector(".upload-section");
 const contentInput = document.getElementById("content-upload");
-const modelSelector = document.getElementById("model-selector");
-const modelInput = document.getElementById("selected-model-name");
+const modelInput = document.getElementById("selected-model-value");
 const fileInput = document.getElementById("content-upload");
 const previewImage = document.getElementById("preview-image-content");
 const previewContainer = document.getElementById("preview-container-content");
@@ -44,7 +43,9 @@ async function generateStylizedImage() {
     const blob = await response.blob();
     resultImage.src = URL.createObjectURL(blob);
     resultContainer.style.display = "block";
+
     uploadSection.classList.add("shift-up");
+    uploadSection.classList.add("shrink");
   } catch (error) {
     console.error("Error:", error);
     alert("Failed to stylize image.");
@@ -178,12 +179,12 @@ function resetUpload(type) {
 /**
  * ========== Range Sync ==========
  */
-const dimensionSlider = document.getElementById("dimension-slider");
-const dimensionValue = document.getElementById("dimension-value");
+// const dimensionSlider = document.getElementById("dimension-slider");
+// const dimensionValue = document.getElementById("dimension-value");
 
-dimensionSlider.addEventListener("input", () => {
-  dimensionValue.value = dimensionSlider.value;
-});
+// dimensionSlider.addEventListener("input", () => {
+//   dimensionValue.value = dimensionSlider.value;
+// });
 
 
 /**
@@ -213,10 +214,10 @@ function resetAll() {
   document.getElementById("style-upload").value = "";
   document.getElementById("style-gallery").innerHTML = "";
 
-  modelSelector.selectedIndex = 0;
-  modelInput.value = modelSelector.value;
+  // modelSelector.selectedIndex = 0;
+  // modelInput.value = modelSelector.value;
 
-  loadStyleThumbnails(modelSelector.value);
+  // loadStyleThumbnails(modelSelector.value);
 }
 
 
@@ -240,12 +241,8 @@ function toggleStyleSection(button) {
  */
 window.addEventListener("DOMContentLoaded", () => {
 
-  modelSelector.addEventListener("change", () => {
-    modelInput.value = modelSelector.value;
-    loadStyleThumbnails(modelSelector.value);
-  });
-
-  loadStyleThumbnails(modelSelector.value);
+  const modelName = document.getElementById("selected-model-value");
+  loadStyleThumbnails(modelName.value);
 
   document.getElementById("full-overlay-content").addEventListener("click", (e) => {
     e.stopPropagation();
@@ -269,12 +266,59 @@ window.addEventListener("DOMContentLoaded", () => {
     dropAreaSelectorId: "style-box",
   });
 
-  // Load styles when a model is selected
-  modelSelector.addEventListener("change", () => {
-    modelInput.value = modelSelector.value;
-    loadStyleThumbnails(modelSelector.value);
+});
+
+/**
+ * ========== Dropdown Box ==========
+ */
+function setupDropdown({ dropdownId, selectedId, optionsId, hiddenInputId, onChange = null }) {
+  const dropdown = document.getElementById(dropdownId);
+  const selected = document.getElementById(selectedId);
+  const options = document.getElementById(optionsId);
+  const hiddenInput = document.getElementById(hiddenInputId);
+
+  dropdown.addEventListener("click", (e) => {
+    if (e.target === selected) {
+      dropdown.classList.toggle("open");
+    }
   });
 
-  // Initial load
-  loadStyleThumbnails(modelSelector.value);
+  options.addEventListener("click", (e) => {
+    if (e.target.classList.contains("dropdown-option")) {
+      dropdown.classList.remove("open");
+
+      const value = e.target.dataset.value;
+      selected.textContent = e.target.textContent;
+      hiddenInput.value = value;
+
+      options.querySelectorAll(".dropdown-option").forEach(opt => opt.classList.remove("selected"));
+      e.target.classList.add("selected");
+
+      if (onChange) onChange(value);
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove("open");
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupDropdown({
+    dropdownId: "model-dropdown",
+    selectedId: "selected-model",
+    optionsId: "model-options",
+    hiddenInputId: "selected-model-value",
+    onChange: loadStyleThumbnails
+  });
+
+  setupDropdown({
+    dropdownId: "quality-dropdown",
+    selectedId: "selected-quality",
+    optionsId: "quality-options",
+    hiddenInputId: "selected-quality-value",
+    onChange: (val) => console.log("Quality selected:", val)
+  });
 });

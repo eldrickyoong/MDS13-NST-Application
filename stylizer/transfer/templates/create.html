@@ -66,7 +66,6 @@
             <h3 class="upload-title">Style</h3>
 
             <div class="upload-area" id="style-box">
-              <input type="hidden" id="selected-style-path" name="style_path">
               <input type="file" id="style-upload" hidden>
 
               <!-- Before upload -->
@@ -107,24 +106,47 @@
           <h3 class="panel-header">Output customization</h3>
 
           <!-- Output Size Slider -->
-          <div class="section">
+          <!-- <div class="section">
             <p>Size (px)</p>
             <div class="slider-group">
               <label for="dimension-slider">Dimension</label>
               <input type="range" id="dimension-slider" min="256" max="1024" step="32" value="512" />
               <input type="number" id="dimension-value" value="512" readonly />
             </div>
+          </div> -->
+
+          <!-- Output Quality Selection -->
+          <div class="section">
+            <p>Output Quality</p>
+            <div class="custom-dropdown" id="quality-dropdown" tabindex="0" role="listbox" aria-activedescendant="quality-1">
+              <div class="dropdown-selected" id="selected-quality">720p</div>
+              <ul class="dropdown-options" id="quality-options">
+                <li class="dropdown-option" id="quality-0" data-value="360p">360p</li>
+                <li class="dropdown-option selected" id="quality-1" data-value="720p">720p</li>
+                <li class="dropdown-option" id="quality-2" data-value="1080p">1080p</li>
+              </ul>
+              <img class="dropdown-icon" src="{% static 'icons/angle-small-left-white.svg' %}" alt="Dropdown arrow">
+            </div>
+            <!-- Hidden actual input to store the value -->
+            <input type="hidden" id="selected-quality-value" name="quality_value" value="720p">
           </div>
 
           <!-- Model Selection -->
           <div class="section">
-            <input type="hidden" name="model_name" id="selected-model-name" value="johnson_fast_style" />
             <p>Models</p>
-            <select id="model-selector" class="model-selector">
-              <option value="johnson_fast_style">Johnson (Fast)</option>
-              <option value="gatys_iterative_style">Gatys (Iterative)</option>
-            </select>
+            <div class="custom-dropdown" id="model-dropdown" tabindex="0" role="listbox" aria-activedescendant="model-0">
+              <div class="dropdown-selected" id="selected-model">Johnson (Fast)</div>
+              <ul class="dropdown-options" id="model-options">
+                <li class="dropdown-option selected" id="model-0" data-value="johnson_fast_style">Johnson (Fast)</li>
+                <li class="dropdown-option" id="model-1" data-value="gatys_iterative_style">Gatys (Iterative)</li>
+              </ul>
+              <img class="dropdown-icon" src="{% static 'icons/angle-small-left-white.svg' %}" alt="Dropdown arrow">
+            </div>
+            <!-- Hidden actual input to store the value -->
+            <input type="hidden" id="selected-model-value" name="model_value" value="johnson_fast_style">
           </div>
+
+
 
           <!-- Style Gallery Section -->
           <button class="section-toggle" aria-expanded="false" onclick="toggleStyleSection(this)">
