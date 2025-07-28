@@ -34,7 +34,9 @@
 
           <!-- Content Upload Box -->
           <div class="upload-card">
-            <h3 class="upload-title">Content</h3>
+            <div class="card-header">
+              <span>Content</span>
+            </div>
 
             <div class="upload-area" id="content-box" >
               <input type="file" id="content-upload" class="file-input" accept="image/*" hidden>
@@ -64,14 +66,22 @@
 
           <!-- Style Upload Box -->
           <div class="upload-card">
-            <h3 class="upload-title">Style</h3>
+            <div class="card-header">
+              <span>Style</span>
+              <img 
+                src="{% static 'icons/info-white.svg' %}" 
+                alt="Style Info"
+                class="info-icon"
+                title="Only certain models support user-uploaded styles." 
+              />
+            </div>
 
             <div class="upload-area" id="style-box">
               <input type="file" id="style-upload" hidden>
 
               <!-- Before upload -->
               <div class="upload-inner" id="upload-style-display">
-                <img src="{% static 'icons/palette-white.svg' %}" alt="Palette Icone" />
+                <img src="{% static 'icons/palette-white.svg' %}" alt="Palette Icon" />
                 <p class="upload-note">Click to upload or drag & drop</p>
               </div>
 
@@ -80,6 +90,7 @@
                 <div class="preview-frame">
                   <img id="preview-image-style" class="preview" />
                 </div>
+                  
                 <p id="file-name-style" class="file-name"></p>
               </div>
 
@@ -90,13 +101,15 @@
               </div>
             </div>
           </div>
-
         </div>
 
         <!-- Stylized Output Result -->
         <div id="result-container" class="result-container">
-          <h3>Stylized Result:</h3>
-          <img id="stylized-image" alt="Generated artwork" />
+          <div class="result-title">Stylized Result</div>
+
+          <div class="result-area" id="result-box">
+            <img id="stylized-image" alt="Generated artwork" hidden/>
+          </div>
         </div>
       </div>
 
@@ -146,8 +159,6 @@
             <!-- Hidden actual input to store the value -->
             <input type="hidden" id="selected-model-value" name="model_value" value="johnson_fast_style">
           </div>
-
-
 
           <!-- Style Gallery Section -->
           <button class="section-toggle" aria-expanded="false" onclick="toggleStyleSection(this)">

@@ -27,6 +27,11 @@ async function generateStylizedImage() {
     return;
   }
 
+  resultContainer.style.display = "flex";
+
+  uploadSection.classList.add("shift-up");
+  uploadSection.classList.add("shrink");
+
   const formData = new FormData();
   formData.append("content", contentInput.files[0]);
   formData.append("model_name", modelInput.value);
@@ -42,10 +47,8 @@ async function generateStylizedImage() {
 
     const blob = await response.blob();
     resultImage.src = URL.createObjectURL(blob);
-    resultContainer.style.display = "block";
+    resultImage.style.display = "block";
 
-    uploadSection.classList.add("shift-up");
-    uploadSection.classList.add("shrink");
   } catch (error) {
     console.error("Error:", error);
     alert("Failed to stylize image.");
@@ -232,7 +235,7 @@ function toggleStyleSection(button) {
   galleryWrapper.classList.toggle("collapsed");
 
   if (!expanded && document.getElementById("style-gallery").children.length === 0) {
-    loadStyleThumbnails(modelSelector.value);
+    loadStyleThumbnails(modelInput.value);
   }
 }
 
