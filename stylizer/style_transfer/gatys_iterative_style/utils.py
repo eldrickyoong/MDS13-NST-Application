@@ -12,7 +12,6 @@ from .vgg_nets import Vgg16, Vgg19, Vgg16Experimental
 IMAGENET_MEAN_255 = [123.675, 116.28, 103.53]
 IMAGENET_STD_NEUTRAL = [1, 1, 1]
 
-
 #
 # Image manipulation util functions
 #

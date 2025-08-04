@@ -5,7 +5,7 @@ from django.conf import settings
 from PIL import Image
 from pathlib import Path
 import io
-from .style_transfer import stylize_image 
+from .style_transfer_runner import stylize_image 
 
 def index(request):
     return render(request, "index.html")

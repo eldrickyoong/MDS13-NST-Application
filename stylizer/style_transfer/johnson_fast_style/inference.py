@@ -1,5 +1,5 @@
 import torch
-from style_transfer_models.johnson_fast_style.transformer_net import TransformerNet
+from style_transfer.johnson_fast_style.transformer_net import TransformerNet
 from PIL import Image
 from torchvision import transforms
 import numpy as np

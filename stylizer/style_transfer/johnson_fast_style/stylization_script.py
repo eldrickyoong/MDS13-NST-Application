@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader
 
 
 import utils.utils as utils
-from style_transfer_models.johnson_fast_style.transformer_net import TransformerNet
+from style_transfer.johnson_fast_style.transformer_net import TransformerNet
 
 
 def stylize_static_image(inference_config):
