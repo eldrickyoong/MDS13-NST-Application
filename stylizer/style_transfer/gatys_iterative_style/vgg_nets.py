@@ -1,6 +1,7 @@
 from collections import namedtuple
 import torch
 from torchvision import models
+from torchvision.models import VGG19_Weights
 
 """
     More detail about the VGG architecture (if you want to understand magic/hardcoded numbers) can be found here:
@@ -166,7 +167,7 @@ class Vgg19(torch.nn.Module):
     """
     def __init__(self, requires_grad=False, show_progress=False, use_relu=True):
         super().__init__()
-        vgg_pretrained_features = models.vgg19(pretrained=True, progress=show_progress).features
+        vgg_pretrained_features = models.vgg19(weights=VGG19_Weights.DEFAULT, progress=show_progress).features
         if use_relu:  # use relu or as in original paper conv layers
             self.layer_names = ['relu1_1', 'relu2_1', 'relu3_1', 'relu4_1', 'conv4_2', 'relu5_1']
             self.offset = 1

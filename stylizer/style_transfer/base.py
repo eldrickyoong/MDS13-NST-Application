@@ -9,11 +9,11 @@ class BaseStyleTransferModel(ABC):
         self.model = None
 
     @abstractmethod
-    def load_model(self, model_path=None):
+    def load_model(self, model_path):
         pass
 
     @abstractmethod
-    def stylize(self, content_img_tensor, style_img_tensor=None):
+    def stylize(self, content_img_tensor, style_img_tensor) -> torch.Tensor:
         pass
 
     def preprocess(self, image):

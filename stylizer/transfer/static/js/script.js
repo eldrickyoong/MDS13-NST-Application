@@ -11,17 +11,22 @@ const resultContainer = document.getElementById("result-container");
 const resultImage = document.getElementById("stylized-image");
 const uploadSection = document.querySelector(".upload-section");
 const contentInput = document.getElementById("content-upload");
+const styleInput = document.getElementById("style-upload");
 const modelInput = document.getElementById("selected-model-value");
-const fileInput = document.getElementById("content-upload");
 const previewImage = document.getElementById("preview-image-content");
 const previewContainer = document.getElementById("preview-container-content");
 const fileName = document.getElementById("file-name-content");
+const stylePath = document.getElementById("selected-style-path").value;
 
 
 /**
  * ========== Image Generation ==========
  */
 async function generateStylizedImage() {
+  const contentInput = document.getElementById("content-upload");
+  const styleInput = document.getElementById("style-upload");
+  const modelValue = document.getElementById("selected-model-value").value;
+  const stylePath = document.getElementById("selected-style-path").value;
   if (!contentInput.files.length) {
     alert("Please upload a content image.");
     return;
@@ -35,7 +40,15 @@ async function generateStylizedImage() {
   const formData = new FormData();
   formData.append("content", contentInput.files[0]);
   formData.append("model_name", modelInput.value);
-  formData.append("style_path", document.getElementById("selected-style-path").value);
+
+  if (styleInput.files.length > 0) {
+    formData.append("style", styleInput.files[0]);
+  } else if (stylePath) {
+    formData.append("style_path", stylePath);
+  } else {
+    alert("Please upload a style image or choose one from the gallery.");
+    return;
+  }
 
   try {
     const response = await fetch("/stylize/", {
@@ -46,12 +59,15 @@ async function generateStylizedImage() {
     if (!response.ok) throw new Error("Stylization failed");
 
     const blob = await response.blob();
-    resultImage.src = URL.createObjectURL(blob);
-    resultImage.style.display = "block";
+    const imageUrl = URL.createObjectURL(blob);
+
+    const stylizedImg = document.getElementById("stylized-image");
+    stylizedImg.src = imageUrl;
+    stylizedImg.style.display = "block";
 
   } catch (error) {
     console.error("Error:", error);
-    alert("Failed to stylize image.");
+    alert("There was a problem generating the stylized image.");
   }
 }
 

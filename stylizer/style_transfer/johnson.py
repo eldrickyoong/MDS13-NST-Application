@@ -3,7 +3,7 @@ from style_transfer.johnson_fast_style.transformer_net import TransformerNet
 from .base import BaseStyleTransferModel
 
 class JohnsonStyleTransferModel(BaseStyleTransferModel):
-    def load_model(self, model_path=None):
+    def load_model(self, model_path):
       if model_path is None:
         raise ValueError("model_path is required for Johnson model.")
       self.model = TransformerNet().to(self.device)

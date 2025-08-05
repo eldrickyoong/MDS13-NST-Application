@@ -35,12 +35,17 @@ def stylize(request):
     if request.method == "POST":
         content_file = request.FILES.get("content")
         model_name = request.POST.get("model_name")
+        style_file = request.FILES.get("style")
         style_path = request.POST.get("style_path")
 
-        if not content_file or not model_name or not style_path:
-            return HttpResponse("Missing content, model, or style", status=400)
+        if not content_file:
+            return HttpResponse("Missing content image", status=400)
+        if not model_name:
+            return HttpResponse("Missing model name", status=400)
+        if not style_file and not style_path:
+            return HttpResponse("Missing style image or style path", status=400)
 
-        result_img = stylize_image(content_file, style_path, model_name)
+        result_img = stylize_image(content_file, model_name, style_file, style_path, )
 
         buf = io.BytesIO()
         result_img.save(buf, format="PNG")
@@ -48,4 +53,3 @@ def stylize(request):
         return FileResponse(buf, content_type="image/png")
 
     return HttpResponse("Invalid request", status=405)
-
