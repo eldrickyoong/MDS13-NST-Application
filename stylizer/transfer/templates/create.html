@@ -132,11 +132,11 @@
           <div class="section">
             <p>Output Quality</p>
             <div class="custom-dropdown" id="quality-dropdown" tabindex="0" role="listbox" aria-activedescendant="quality-1">
-              <div class="dropdown-selected" id="selected-quality">720p</div>
+              <div class="dropdown-selected" id="selected-quality">Standard</div>
               <ul class="dropdown-options" id="quality-options">
-                <li class="dropdown-option" id="quality-0" data-value="360p">360p</li>
-                <li class="dropdown-option selected" id="quality-1" data-value="720p">720p</li>
-                <li class="dropdown-option" id="quality-2" data-value="1080p">1080p</li>
+                <li class="dropdown-option" id="quality-0" data-value="360p">Standard</li>
+                <!-- <li class="dropdown-option selected" id="quality-1" data-value="720p">720p</li> -->
+                <li class="dropdown-option" id="quality-2" data-value="1080p">Enhanced</li>
               </ul>
               <img class="dropdown-icon" src="{% static 'icons/angle-small-left-white.svg' %}" alt="Dropdown arrow">
             </div>
@@ -148,11 +148,10 @@
           <div class="section">
             <p>Models</p>
             <div class="custom-dropdown" id="model-dropdown" tabindex="0" role="listbox" aria-activedescendant="model-0">
-              <div class="dropdown-selected" id="selected-model">Johnson (Fast)</div>
+              <div class="dropdown-selected" id="selected-model">Single-Style Model</div>
               <ul class="dropdown-options" id="model-options">
-                <li class="dropdown-option selected" id="model-0" data-value="johnson_fast_style">Johnson (Fast)</li>
-                <li class="dropdown-option" id="model-1" data-value="gatys_iterative_style">Gatys (Iterative)</li>
-                <li class="dropdown-option" id="model-2" data-value="linear_fast_style">Linear</li>
+                <li class="dropdown-option selected" id="model-0" data-value="johnson_fast_style">Single-Style Model</li>
+                <li class="dropdown-option" id="model-2" data-value="linear_fast_style">Any-Style Model</li>
               </ul>
               <img class="dropdown-icon" src="{% static 'icons/angle-small-left-white.svg' %}" alt="Dropdown arrow">
             </div>
