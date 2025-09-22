@@ -10,19 +10,49 @@
 <body>
   <div class="container">
 
-    <nav class="navbar">
-      <div class="logo">
-        <a href="{% url 'index' %}">Dream Render</a>
-      </div>
-      <div class="nav-links">
-        <a href="{% url 'index' %}">Inspiration</a>
-        <a href="{% url 'create' %}">My Gallery</a>
-        <a href="{% url 'create' %}">Login</a>
-        <a href="{% url 'about' %}">About Us</a>
-      </div>
-    </nav>
+      <nav class="sidebar">
+          <div class="sidebar-logo">
+              <img src="{% static 'icons/logo.svg' %}" alt="StyloAI Logo">
+              <span>StyloAI</span>
+          </div>
 
-    <!-- Main Content Area -->
+          <ul class="sidebar-links">
+              <li class="active">
+                  <a href="{% url 'index' %}">
+                      <img src="{% static 'icons/home.svg' %}" alt="Home">
+                      <span>Home</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="{% url 'inspiration' %}">
+                      <img src="{% static 'icons/inspiration.svg' %}" alt="Inspiration">
+                      <span>Inspiration</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="{% url 'gallery' %}">
+                      <img src="{% static 'icons/gallery.svg' %}" alt="My Gallery">
+                      <span>My Gallery</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="{% url 'support' %}">
+                      <img src="{% static 'icons/support.svg' %}" alt="Support">
+                      <span>Support</span>
+                  </a>
+              </li>
+          </ul>
+
+          <div class="sidebar-footer">
+              <a href="{% url 'index' %}">
+                  <img src="{% static 'icons/logout.svg' %}" alt="Logout">
+                  <span>Log out</span>
+              </a>
+          </div>
+      </nav>
+
+
+      <!-- Main Content Area -->
     <main class="main">
 
       <!-- Center Panel for Uploads & Result -->
