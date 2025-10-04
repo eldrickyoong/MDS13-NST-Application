@@ -7,14 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StyloAI - Sign In</title>
-    <!-- After compiling SCSS to CSS, link it here -->
     <link rel="stylesheet" href="{% static 'css/home-login.css' %}">
 </head>
 <body>
 <div class="card">
     <!-- Logo -->
     <div class="logo">
-        <img src="{% static 'images/md_card.png' %}" alt="StyloAI Logo" class="logo-img">
+        <img src="{% static 'images/icons/md_card.png' %}" alt="StyloAI Logo" class="logo-img">
         <h1>StyloAI</h1>
     </div>
 
@@ -33,7 +32,7 @@
             <label>Password*</label>
             <input type="password" placeholder="Min. 8 characters" required>
             <span class="toggle-password">
-        <img src="{% static 'images/eye.png' %}" alt="Show Password">
+        <img src="{% static 'images/icons/eye.png' %}" alt="Show Password">
       </span>
         </div>
 
@@ -52,9 +51,9 @@
 
         // change icon based on type
         if (type === 'password') {
-            toggleImg.src = "{% static 'images/eye_closed.png' %}"; // closed eye
+            toggleImg.src = "{% static 'images/icons/eye_closed.png' %}"; // closed eye
         } else {
-            toggleImg.src = "{% static 'images/eye.png' %}"; // open eye
+            toggleImg.src = "{% static 'images/icons/eye.png' %}"; // open eye
         }
     });
 </script>

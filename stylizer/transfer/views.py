@@ -17,13 +17,13 @@ def about(request):
     return render(request, "about.html")
 
 def inspiration(request):
-    return render(request, "transfer/inspiration.html")
+    return render(request, "inspiration.html")
 
 def gallery(request):
-    return render(request, "transfer/gallery.html")
+    return render(request, "gallery.html")
 
 def support(request):
-    return render(request, "transfer/support.html")
+    return render(request, "support.html")
 
 
 def style_images(request):

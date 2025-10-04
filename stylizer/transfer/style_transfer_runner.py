@@ -7,6 +7,7 @@ from style_transfer.johnson import JohnsonStyleTransferModel
 from style_transfer.linear import LinearStyleTransferModel
 from style_transfer.gatys import GatysStyleTransferModel
 from style_transfer.utils import image_to_tensor, tensor_to_pil
+import torch
 
 VALID_MODELS = ['johnson_fast_style', 'gatys_iterative_style', 'linear_fast_style']
 BINARIES_ROOT = Path(__file__).resolve().parent.parent / "style_transfer" / "johnson_fast_style" / "binaries"
@@ -56,6 +57,8 @@ def stylize_image(content_file, model_name, style_file=None, style_path_str=None
     style_tensor = image_to_tensor(style_img)
     
     model_base_path = Path(__file__).resolve().parent.parent / "style_transfer"
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    
 
     if model_name == "johnson_fast_style":
         # Extract base name (e.g., 'candy' from 'candy.jpg')
@@ -67,11 +70,11 @@ def stylize_image(content_file, model_name, style_file=None, style_path_str=None
         if not model_path or not model_path.exists():
             raise FileNotFoundError(f"Model weights not found: {style_path.stem, model_path}")
         
-        model = JohnsonStyleTransferModel()
+        model = JohnsonStyleTransferModel(device=device)
         model.load_model(model_path)
     elif model_name == "linear_fast_style":
         
-        model = LinearStyleTransferModel()
+        model = LinearStyleTransferModel(device=device)
         model.load_model(model_base_path)
 
     else:

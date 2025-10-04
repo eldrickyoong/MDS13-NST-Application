@@ -1,43 +1,47 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Create Artwork</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/create.css' %}">
 </head>
 <body>
   <div class="container">
 
       <nav class="sidebar">
           <div class="sidebar-logo">
-              <img src="{% static 'icons/logo.svg' %}" alt="StyloAI Logo">
-              <span>StyloAI</span>
+              <a href="{% url 'index' %}">
+                  <img src="{% static 'images/icons/md_card.png' %}" alt="StyloAI Logo">
+                  <span>StyloAI</span>
+              </a>
           </div>
 
           <ul class="sidebar-links">
               <li class="active">
                   <a href="{% url 'index' %}">
-                      <img src="{% static 'icons/home.svg' %}" alt="Home">
+                      <img src="{% static 'images/icons/home.png' %}" alt="Home">
                       <span>Home</span>
                   </a>
               </li>
               <li>
                   <a href="{% url 'inspiration' %}">
-                      <img src="{% static 'icons/inspiration.svg' %}" alt="Inspiration">
+                      <img src="{% static 'images/icons/lightbulb.png' %}" alt="Inspiration">
                       <span>Inspiration</span>
                   </a>
               </li>
               <li>
                   <a href="{% url 'gallery' %}">
-                      <img src="{% static 'icons/gallery.svg' %}" alt="My Gallery">
+                      <img src="{% static 'images/icons/gallery.png' %}" alt="My Gallery">
                       <span>My Gallery</span>
                   </a>
               </li>
               <li>
                   <a href="{% url 'support' %}">
-                      <img src="{% static 'icons/support.svg' %}" alt="Support">
+                      <img src="{% static 'images/icons/headphones.png' %}" alt="Support">
                       <span>Support</span>
                   </a>
               </li>
@@ -45,7 +49,7 @@
 
           <div class="sidebar-footer">
               <a href="{% url 'index' %}">
-                  <img src="{% static 'icons/logout.svg' %}" alt="Logout">
+                  <img src="{% static 'images/icons/logout.png' %}" alt="Logout">
                   <span>Log out</span>
               </a>
           </div>
@@ -226,5 +230,6 @@
       </div>
     </div>
   </div>
+
 </body>
 </html>
