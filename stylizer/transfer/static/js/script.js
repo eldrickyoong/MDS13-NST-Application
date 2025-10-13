@@ -72,42 +72,42 @@ async function generateStylizedImage() {
 }
 
 /**
- * ========== Style Thumbnails ========== 
+ * ========== Style Thumbnails ==========
  */
 function loadStyleThumbnails(modelName) {
   fetch(`/style-images?model=${modelName}`)
-    .then(res => res.json())
-    .then(images => {
-      const gallery = document.getElementById("style-gallery");
-      gallery.innerHTML = "";
-      const hiddenInput = document.getElementById("selected-style-path");
+      .then(res => res.json())
+      .then(images => {
+        const gallery = document.getElementById("style-gallery");
+        gallery.innerHTML = "";
+        const hiddenInput = document.getElementById("selected-style-path");
 
-      images.forEach((src) => {
-        const img = document.createElement("img");
-        img.src = src;
-        img.classList.add("style-thumb");
+        images.forEach((src) => {
+          const img = document.createElement("img");
+          img.src = src;
+          img.classList.add("style-thumb");
 
-        img.addEventListener("click", () => {
-          document.querySelectorAll(".style-thumb").forEach(el => el.classList.remove("selected"));
-          img.classList.add("selected");
-          showPreview(src, "style");
-          hiddenInput.value = src;
+          img.addEventListener("click", () => {
+            document.querySelectorAll(".style-thumb").forEach(el => el.classList.remove("selected"));
+            img.classList.add("selected");
+            showPreview(src, "style");
+            hiddenInput.value = src;
+          });
+
+          gallery.appendChild(img);
         });
-
-        gallery.appendChild(img);
-      });
-    })
-    .catch(err => console.error("Failed to load style images:", err));
+      })
+      .catch(err => console.error("Failed to load style images:", err));
 }
 
 /**
- * ========== Upload Function ========== 
+ * ========== Upload Function ==========
  */
 
 function setupUploadCard({
-  areaId,
-  dropAreaSelectorId
-}) {
+                           areaId,
+                           dropAreaSelectorId
+                         }) {
   const input = document.getElementById(areaId);
   const dropArea = document.getElementById(dropAreaSelectorId);
   const type = areaId.includes("style") ? "style" : "content";
@@ -133,7 +133,7 @@ function setupUploadCard({
     input.files = e.dataTransfer.files;
     showPreview(file, type);
   });
-  
+
   // Input change
   input.addEventListener("change", () => {
     if (!input.files.length) return;
@@ -190,6 +190,8 @@ function resetUpload(type) {
   document.getElementById(`preview-container-${type}`).style.display = "none";
   document.getElementById(`upload-${type}-display`).style.display = "flex";
   document.getElementById(`file-name-${type}`).textContent = "";
+  document.getElementById(`file-name-${type}`).textContent = "";
+
 
   // remove overlay trigger
   document.getElementById(`${type}-box`).classList.remove("has-image");
@@ -276,7 +278,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 window.addEventListener("DOMContentLoaded", () => {
   setupUploadCard({
-    areaId: "content-upload", 
+    areaId: "content-upload",
     dropAreaSelectorId: "content-box"
   });
 

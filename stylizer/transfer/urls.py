@@ -10,4 +10,5 @@ urlpatterns = [
     path("support/", views.support, name="support"),
     path("style-images/", views.style_images, name="style_images"),
     path("stylize/", views.stylize, name="stylize"),
+
 ]

@@ -8,12 +8,175 @@
     font-family: 'Poppins', sans-serif;
 }
 
+:root {
+    /* Light theme colors */
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+}
+
+.material-symbols-rounded { /* Sidebar Icons */
+    font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+}
+
 body {
     font-family: 'Poppins', sans-serif;
-    background: white;
-    color: white;
+    background: var(--color-bg-primary);
+    color: black;
     height: 100vh;
     overflow: hidden;
+}
+
+/* =============================================
+   Sidebar
+============================================= */
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh;              /* full screen height */
+    width: 70px;                /* collapsed width */
+    background: var(--color-bg-sidebar);
+    border-right: 1px solid var(--color-border-hr);
+    box-shadow: 0 3px 9px var(--color-shadow);
+    transition: width 0.3s ease;
+}
+
+.sidebar .sidebar-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 10px;
+    overflow: hidden auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-text-placeholder) transparent;
+    justify-content: center;
+}
+
+
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* center vertically */
+    flex-grow: 1;
+    list-style: none;
+}
+
+.menu-list .menu-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 12px;
+    border-radius: 10px;
+    color: var(--color-text-primary);
+    transition: 0.3s ease;
+    justify-content: center;
+}
+
+.menu-list .menu-link:is(:hover, .active) {
+    color: #fff;
+    background: var(--color-hover-primary);
+}
+
+.menu-item {
+    margin-bottom: 7px; /* adds spacing under each link */
+}
+
+.sidebar-footer a {
+    justify-content: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    border-radius: 8px;
+    color: var(--color-text-primary);
+    transition: 0.3s ease;
+}
+
+.sidebar-footer a:hover {
+    color: #fff;
+    background: #888888;
+}
+
+
+/* Expand on hover */
+.sidebar:hover {
+    visibility: visible;
+    width: 220px;
+}
+
+.sidebar-logo a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: var(--color-text-primary);
+    text-decoration: none;  /* removes underline */
+    transition: 0.3s ease;
+}
+
+.menu-link .menu-label {
+    transition: 0.3s ease;
+}
+
+/* COLLAPSED */
+.menu-link span:last-child,
+.sidebar-logo span:last-child,
+.sidebar-footer span:last-child {
+    opacity: 0;
+    pointer-events: none;
+    max-width: 0;
+    overflow: hidden;
+    transition: max-width 0.3s ease, opacity 0.3s ease;
+    margin-left: 0;
+}
+
+/* Show text on hover */
+.sidebar:hover .menu-link span:last-child,
+.sidebar:hover .sidebar-logo span:last-child,
+.sidebar:hover .sidebar-footer span:last-child {
+    opacity: 1;
+    visibility: visible;
+    max-width: 160px;   /* enough space for your longest label */
+    padding: 12px;
+    margin-left: 12px;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+/* Reset alignment when expanded */
+.sidebar:hover .menu-link,
+.sidebar:hover .sidebar-logo a,
+.sidebar:hover .sidebar-footer a {
+    justify-content: flex-start;
+}
+
+.menu-list .menu-link,
+.sidebar-logo a,
+.sidebar-footer a {
+    padding: 12px;          /* fixed padding so size never changes */
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* center icons in collapsed */
+    gap: 0;                  /* no gap by default */
+    transition: 0.3s ease;
+    min-width: 48px;         /* FIX: keep consistent icon box width */
+    box-sizing: border-box;
 }
 
 .container {
@@ -37,7 +200,7 @@ body {
 .main {
     flex: 1;
     display: flex;
-    gap: 0px;
+    gap: 0;
 }
 
 .center-panel {
@@ -96,7 +259,7 @@ body {
     font-size: 100%;
     font-weight: bold;
     margin-bottom: 4%;
-    color: #fff;
+    color: black;
     text-shadow: 0 0 2px rgba(255, 255, 255, 0.1);
 }
 .upload-section .upload-card .card-header .info-icon {
@@ -115,19 +278,27 @@ body {
     position: relative;
     width: 100%;
     aspect-ratio: 1/1.25;
-    border: 2px dashed #434343;
-    background-color: #1c1c1c;
-    border-radius: 20px;
+    border: 2px solid transparent;
+    border-radius: 100px;
+    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     transition: border 0.3s ease;
     cursor: pointer;
+
+    /* Dashed border all around */
+    border-image: repeating-conic-gradient(
+            from 0deg,
+            #858585 0deg 5deg,   /* dash */
+            transparent 5deg 10deg  /* gap */
+    ) 1;
 }
 .upload-section .upload-card .upload-area.has-image:hover .full-overlay {
     opacity: 1;
     pointer-events: auto;
+    color: #695CFE;
 }
 .upload-section .upload-card .upload-area.has-image:hover .full-overlay img {
     transform: rotate(90deg) scale(1.1);
@@ -136,7 +307,6 @@ body {
 }
 .upload-section .upload-card .upload-area .upload-inner {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -148,11 +318,12 @@ body {
     width: 52px;
     margin-bottom: 12px;
     opacity: 0.8;
+    color: #695CFE;
     transition: transform 0.3s ease, filter 0.3s ease;
 }
 .upload-section .upload-card .upload-area .upload-inner p.upload-note {
     font-size: 0.85rem;
-    color: #aaa;
+    color: black;
     transition: color 0.3s ease;
 }
 .upload-section .upload-card .upload-area:not(.has-image):hover .upload-inner {
@@ -165,7 +336,14 @@ body {
     opacity: 1;
 }
 .upload-section .upload-card .upload-area:not(.has-image):hover .upload-inner p.upload-note {
-    color: #fff;
+    color: #695CFE;
+}
+.upload-section .upload-card .upload-area .material-symbols-rounded.upload-icon {
+    font-size: 60px; /* bigger icon */
+    width: auto;
+    height: auto;
+    color: #695CFE;
+    margin-bottom: 30px;
 }
 .upload-section .upload-card .upload-area .preview-container {
     position: relative;
@@ -337,8 +515,11 @@ body {
     flex-direction: column;
     height: 100vh;
     width: 250px;
-    background: #292929;
+    background: white;
+    border-left: 1px solid #ccc; /* light grey border */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
+
 
 .customize-content {
     flex: 1;
@@ -541,7 +722,7 @@ body {
 .customize-footer {
     padding: 16px 20px;
     border-top: 2px solid #454545;
-    background: #292929;
+    background: white;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -642,204 +823,11 @@ body {
     height: auto;
 }
 
-.start-btn {
-    margin-top: 3rem;
-    border: 2px solid #5ce1e6; /* Light blue border */
-    padding: 12px 24px;
-    border-radius: 3px;        /* optional: soften corners */
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-    font-family: 'Open Sauce One', sans-serif;
-    letter-spacing: 6px;
-    background: transparent;
-    transition: all 0.3s ease;
-}
-
-.start-btn:hover {
-    background-color: #5ce1e6;
-    color: #0a0a0a;
-}
 
 .text-block {
     display: flex;
     flex-direction: column;
     align-items: flex-start;     /* align h1 and h2 to same left edge */
-}
-
-h1 {
-    font-size: 5rem;         /* bigger font size */
-    font-weight: 300;
-    font-family: 'Open Sauce One', sans-serif;
-    letter-spacing: -4px;
-}
-
-h2 {
-    font-size: 5rem;         /* bigger but smaller than h1 */
-    font-weight: 500;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    color: #5ce1e6;        /* keep a lighter color if you like */
-    margin-bottom: 2rem;
-    letter-spacing: -4px;
-}
-
-h1, h2 {
-    line-height: 1.1;  /* default is usually 1.2–1.5; lower means tighter */
-}
-
-
-
-/* Sidebar Base */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;              /* full screen height */
-    width: 70px;                /* collapsed width */
-    background: #292929;      /* dark background */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    z-index: 1000;
-}
-
-/* Text hidden by default */
-.sidebar span {
-    opacity: 0;
-    width: 0;               /* prevents text from taking horizontal space */
-    overflow: hidden;       /* hides overflowing text */
-    white-space: nowrap;    /* keeps text on one line */
-    transition: opacity 0.3s ease, width 0.3s ease;
-    display: inline-block;
-}
-
-/* Text visible when expanded */
-.sidebar:hover span {
-    opacity: 1;
-    width: auto;            /* let text take its natural width */
-}
-/* Expand on hover */
-.sidebar:hover {
-    width: 220px;
-}
-
-/* Logo */
-
-.sidebar-logo img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-}
-
-/*FIX THIS*/
-.sidebar-logo {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;   /* Prevent wrapping into two lines */
-    margin: 20px;
-}
-
-.sidebar-logo span {
-    margin-left: 10px;
-
-}
-.sidebar:hover .sidebar-logo span {
-    opacity: 1;
-    visibility: visible;
-}
-
-.sidebar-logo a {
-    text-decoration: none;
-    color: inherit;         /* so it takes the sidebar color */
-}
-
-/* Links */
-.sidebar-links li {
-    height: 48px;             /* consistent height for each row */
-    display: flex;
-    align-items: center;      /* vertically center icon + text */
-}
-
-.sidebar-links li a {
-    display: flex;
-    align-items: center;
-    gap: 12px;                /* spacing between icon and text */
-    text-decoration: none;
-    color: inherit;
-    width: 100%;
-    height: 100%;             /* take full row height */
-    padding: 0 12px;          /* side padding */
-    box-sizing: border-box;
-}
-
-.sidebar-links li a img {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0; /* stops shrinking */
-}
-
-.sidebar-links li a:hover {
-    background-color: #333;
-    color: #fff;
-}
-
-.sidebar-links li a:hover span {
-    font-weight: 500;   /* same as default */
-    color: #fff;     /* change color instead */
-}
-
-.sidebar-links li.active a {
-    background-color: #7b61ff;
-    color: #fff;
-}
-.sidebar ul li a {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    text-decoration: none;
-    white-space: nowrap;   /* ✅ force text on one line */
-    overflow: hidden;      /* ✅ hide extra text when collapsed */
-    text-overflow: ellipsis; /* optional: adds "..." if cut off */
-}
-
-
-/* Hide text until expanded */
-.sidebar span {
-    visibility: hidden;
-}
-
-.sidebar:hover span {
-    visibility: visible;
-}
-
-/* Footer (Logout button) */
-.sidebar-footer {
-    margin-bottom: 20px;
-}
-
-.sidebar-footer a {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 12px 20px;
-    color: #ccc;
-    text-decoration: none;
-    font-size: 14px;
-    white-space: nowrap;   /* ✅ force text on one line */
-    overflow: hidden;
-}
-
-.sidebar-footer a:hover {
-    background: #333;
-    color: #fff;
-}
-
-.sidebar-footer img {
-    width: 20px;
-    height: 20px;
 }
 
 .loading-overlay {

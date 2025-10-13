@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Create Artwork</title>
+    <link rel="stylesheet" href="{% static 'css/create2.css' %}">
+    <!-- Link for Google Fonts icons-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+</head>
+<body>
+    <div class="container">
+
+        <div class="sidebar">
+
+            <div class="sidebar-content">
+                <div class="sidebar-logo">
+                    <a href="{% url 'index' %}">
+                        <span class="material-symbols-rounded">style</span>
+                        <span class="menu-label">StyloAI</span>
+                    </a>
+                </div>
+
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a href="{% url 'index' %}" class="menu-link">
+                            <span class="material-symbols-rounded">home</span>
+                            <span class="menu-label">Home</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'create' %}" class="menu-link active">
+                            <span class="material-symbols-rounded">palette</span>
+                            <span class="menu-label">Create</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'inspiration' %}" class="menu-link">
+                            <span class="material-symbols-rounded">lightbulb_2</span>
+                            <span class="menu-label">Inspiration</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'gallery' %}" class="menu-link">
+                            <span class="material-symbols-rounded">wall_art</span>
+                            <span class="menu-label">My Gallery</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'support' %}" class="menu-link">
+                            <span class="material-symbols-rounded">help_center</span>
+                            <span class="menu-label">Support</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="sidebar-footer">
+                    <a href="{% url 'index' %}">
+                        <span class="material-symbols-rounded">logout</span>
+                        <span>Log out</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="main">
+
+            <div class="left-column">
+                <!-- Content Image Box -->
+                <div id="content-box" class="upload-box">
+                    <header>Content Image</header>
+                    <form id="form" action="#">
+                        <input type="file" class="file-input" name="file"hidden>
+                        <div class="inner-box">
+
+                            <span class="material-symbols-rounded upload-icon">upload</span>
+                            <p>Browse File to Upload</p>
+
+                            <!-- Image preview wrapper (initially hidden) -->
+                            <div class="img-wrapper" style="display: none;">
+                                <img src="" alt="Preview">
+                                <span class="remove-overlay">Click to remove</span>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Style Image Box -->
+                <div id="style-box" class="upload-box">
+                    <header>Style Image</header>
+                    <form id="style-form" action="#">
+                        <input type="file" class="file-input" name="file" hidden>
+
+                        <div class="inner-box">
+                            <span class="material-symbols-rounded upload-icon">upload</span>
+                            <p>Browse File to Upload</p>
+
+                            <div class="img-wrapper" style="display: none;">
+                                <img src="" alt="Preview">
+                                <span class="remove-overlay">Click to remove</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div id="result-container" class="result-box">
+                    <header>Stylized Image</header>
+                    <div class="inner-box"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="style-sidebar">
+
+            <h3 class="panel-header">CUSTOMIZATIONS</h3>
+
+            <!-- Style Gallery Section -->
+            <div class="dropdown">
+                <button class="dropdown-btn">Select Style</button>
+                <div class="dropdown-content">
+                    <img src="{% static 'images/linear_fast_style/anime.jpg' %}" alt="Anime" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/bw_drawing.jpg' %}" alt="B&W" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/candy.jpg' %}" alt="Candy" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/cartoon_artstyle.jpg' %}" alt="Cartoon" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/children_book_illustration.jpg' %}" alt="Children's Book" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/chinese_painting.jpg' %}" alt="Chinese Painting" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/cubism.jpg' %}" alt="Cubism" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/dreamscape.jpg' %}" alt="Dreamscape" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/edtaonisl.jpg' %}" alt="Edtaonisl" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/fantasy_world.jpg' %}" alt="Fantasy" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/graffiti.jpg' %}" alt="Graffiti" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/japanese_painting.jpg' %}" alt="Japanese Painting" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/marvel_comic.jpg' %}" alt="Marvel Comic" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/mosaic.jpg' %}" alt="Mosaic" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/nouveau.jpg' %}" alt="Nouveau" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/papercraft.jpg' %}" alt="Papercraft" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/pixel_art.jpg' %}" alt="Pixel Art" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/pyschedelic.jpg' %}" alt="Psychedelic" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/starry.jpg' %}" alt="Starry" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/steampunk.jpg' %}" alt="Steampunk" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/tiles.jpg' %}" alt="Tiles" class="style-option" />
+                    <img src="{% static 'images/linear_fast_style/tribal_art.jpg' %}" alt="Tribal Art" class="style-option" />
+                </div>
+            </div>
+
+            <div class="selected-style-preview">
+                <p>No style selected</p>
+            </div>
+
+            <div class="customize-footer">
+                <button type="button" class="generate" onclick="generateStylizedImage()">Generate</button>
+                <button type="button" class="clear-btn" onclick="confirmClear()">Clear</button>
+            </div>
+
+        </div>
+
+    <script src="{% static 'js/script2.js' %}"></script>
+</body>
+
+

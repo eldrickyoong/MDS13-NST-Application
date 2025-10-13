@@ -11,7 +11,7 @@ def index(request):
     return render(request, "index.html")
 
 def create(request):
-    return render(request, "create.html")
+    return render(request, "create2.html")
 
 def about(request):
     return render(request, "about.html")
