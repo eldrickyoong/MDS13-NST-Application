@@ -5,11 +5,10 @@ from typing import Optional, List
 import matplotlib.pyplot as plt
 from style_transfer.johnson import JohnsonStyleTransferModel
 from style_transfer.linear import LinearStyleTransferModel
-from style_transfer.gatys import GatysStyleTransferModel
 from style_transfer.utils import image_to_tensor, tensor_to_pil
 import torch
 
-VALID_MODELS = ['johnson_fast_style', 'gatys_iterative_style', 'linear_fast_style']
+VALID_MODELS = ['johnson_fast_style', 'linear_fast_style']
 BINARIES_ROOT = Path(__file__).resolve().parent.parent / "style_transfer" / "johnson_fast_style" / "binaries"
 
 def find_binary_for_style(
@@ -72,15 +71,11 @@ def stylize_image(content_file, model_name, style_file=None, style_path_str=None
         
         model = JohnsonStyleTransferModel(device=device)
         model.load_model(model_path)
-    elif model_name == "linear_fast_style":
+    else:
         
         model = LinearStyleTransferModel(device=device)
         model.load_model(model_base_path)
 
-    else:
-        model = GatysStyleTransferModel()
-        model.load_model(model_base_path)
-    
     output_tensor = model.stylize(content_tensor, style_tensor)
     output_image = tensor_to_pil(output_tensor)
     return output_image
