@@ -8,12 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StyloAI - Sign In</title>
     <link rel="stylesheet" href="{% static 'css/home-login.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
 <div class="card">
     <!-- Logo -->
     <div class="logo">
-        <img src="{% static 'images/icons/md_card.png' %}" alt="StyloAI Logo" class="logo-img">
+        <span class="material-symbols-rounded">style</span>
         <h1>StyloAI</h1>
     </div>
 
@@ -32,7 +33,7 @@
             <label>Password*</label>
             <input type="password" placeholder="Min. 8 characters" required>
             <span class="toggle-password">
-        <img src="{% static 'images/icons/eye.png' %}" alt="Show Password">
+        <img src="{% static 'icons/eye.svg' %}" alt="Show Password">
       </span>
         </div>
 
@@ -51,9 +52,9 @@
 
         // change icon based on type
         if (type === 'password') {
-            toggleImg.src = "{% static 'images/icons/eye_closed.png' %}"; // closed eye
+            toggleImg.src = "{% static 'icons/eye-crossed.svg' %}"; // closed eye
         } else {
-            toggleImg.src = "{% static 'images/icons/eye.png' %}"; // open eye
+            toggleImg.src = "{% static 'icons/eye.svg' %}"; // open eye
         }
     });
 </script>

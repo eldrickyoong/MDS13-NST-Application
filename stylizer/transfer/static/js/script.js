@@ -74,7 +74,7 @@ async function generateStylizedImage() {
 /**
  * ========== Style Thumbnails ==========
  */
-function loadStyleThumbnails(modelName) {
+function loadStyleThumbnails() {
   fetch(`/style-images?model=${modelName}`)
       .then(res => res.json())
       .then(images => {

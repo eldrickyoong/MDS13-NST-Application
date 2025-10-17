@@ -2,9 +2,15 @@
 
 import torch
 from abc import ABC, abstractmethod
+import cv2 as cv
+import numpy as np
+from PIL import Image
+
+NEW_WIDTH = 1280
+
 
 class BaseStyleTransferModel(ABC):
-    def __init__(self, device='cuda'):
+    def __init__(self, device="cuda"):
         self.device = device
         self.model = None
 
@@ -13,11 +19,16 @@ class BaseStyleTransferModel(ABC):
         pass
 
     @abstractmethod
-    def stylize(self, content_img_tensor, style_img_tensor) -> torch.Tensor:
+    def stylize(self, content_img_tensor, style_img_tensor):
         pass
 
     def preprocess(self, image):
-        return image.to(self.device)
+        img = np.array(image)
+        current_height, current_width = img.shape[:2]
+        new_height = int(current_height * (NEW_WIDTH / current_width))
+        img = cv.resize(img, (NEW_WIDTH, new_height),
+                        interpolation=cv.INTER_CUBIC)
+        return img
 
     def postprocess(self, tensor):
         return tensor.cpu().clamp(0, 1)
