@@ -1,41 +1,41 @@
+:root {
+    /* Light theme colors */
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f2f2ff;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+}
+
 body {
-    margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #1e1e1e;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    color: black;
     height: 100vh;
+    overflow: hidden;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
-.logo {
-    display: flex;          /* make children sit in a row */
-    align-items: center;    /* vertically center text with image */
-    gap: 10px;              /* spacing between image and text */
-    justify-content: center; /
-}
-
-.logo img.logo-img {
-    width: 40px;            /* adjust size */
-    height: 40px;           /* keep square */
-    object-fit: contain;    /* avoid distortion */
-}
-
-.logo h1 {
-    font-size: 60px;   /* adjust to taste */
-    font-weight: 700;
-    margin: 0;
+.material-symbols-rounded { /* Sidebar Icons */
+    font-size: 64px !important;
+    font-variation-settings:
+            'FILL' 0,
+            'wght' 500,
+            'GRAD' 0,
+            'opsz' 64;
 }
 
 .card {
     text-align: center;
-    max-width: 400px;
-    width: 100%;
-    padding: 2rem;
-    background: #1e1e1e;
+    max-width: 80%;
     border-radius: 10px;
-    margin-top: 150px;
+    margin-bottom: 10%;
 }
 
 .card h2 {
@@ -43,9 +43,22 @@ body {
 }
 
 .card p {
-    color: #b3b3b3;
-    margin: 0 0 15px 0;
+    color: #000000;
+    /* margin: 0 0 15px 0; */
     font-size: 14px;
+}
+
+.logo {
+    display: flex;          /* make children sit in a row */
+    align-items: center;    /* vertically center text with image */
+    gap: 10px;              /* spacing between image and text */
+    justify-content: center;
+}
+
+.logo h1 {
+    font-size: 64px;
+    font-weight: 700;
+    margin: 0;
 }
 
 .submit-btn {
@@ -57,7 +70,7 @@ body {
     color: white;
     font-size: 13px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     text-align: center;
     text-decoration: none; /* remove underline */
     cursor: pointer;
@@ -70,13 +83,12 @@ body {
 .form-group {
     display: flex;
     flex-direction: column; /* stack children vertically */
-    margin-bottom: 16px;
-    color: white;
+    color: rgb(0, 0, 0);
+    margin-bottom: 5%;
 }
 
 .form-group label {
     display: block;         /* force label onto its own line */
-    margin-bottom: 6px;     /* spacing between label and input */
     font-size: 14px;
     font-weight: 500;
     text-align: left;
@@ -86,12 +98,12 @@ body {
     width: 100%;                 /* take full width of parent */
     padding: 12px;               /* inner padding */
     border: 1px solid #ccc;      /* light gray border */
-    background: #1e1e1e;
-    border-radius: 8px;          /* rounded corners */
+    background: #f3f3f3;
+    border-radius: 12px;          /* rounded corners */
     font-size: 12px;             /* adjust font size */
     outline: none;               /* remove default highlight */
     box-sizing: border-box;      /* padding doesn’t add extra width */
-    color: white;
+    color: rgb(0, 0, 0);
     font-family: 'Poppins', sans-serif;
 }
 
@@ -113,7 +125,6 @@ body {
     width: 100%;
     padding-right: 10px; /* space for the eye icon */
     box-sizing: border-box;
-    margin: 5px 0;
 }
 
 .toggle-password {

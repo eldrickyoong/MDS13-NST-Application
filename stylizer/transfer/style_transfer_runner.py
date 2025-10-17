@@ -1,15 +1,16 @@
 from pathlib import Path
-from PIL import Image
 from django.conf import settings
+from PIL import Image
 from typing import Optional, List
 import matplotlib.pyplot as plt
 from style_transfer.johnson import JohnsonStyleTransferModel
 from style_transfer.linear import LinearStyleTransferModel
-from style_transfer.utils import image_to_tensor, tensor_to_pil
+import cv2 as cv
 import torch
 
-VALID_MODELS = ['johnson_fast_style', 'linear_fast_style']
 BINARIES_ROOT = Path(__file__).resolve().parent.parent / "style_transfer" / "johnson_fast_style" / "binaries"
+PREDEFINED_ROOT = Path(__file__).resolve().parent.parent / "transfer" / "static" / "images" / "johnson_fast_style"
+MODEL_ROOT = Path(__file__).resolve().parent.parent / "style_transfer"
 
 def find_binary_for_style(
     style_name: str,
@@ -36,55 +37,41 @@ def find_binary_for_style(
     candidates.sort(key=lambda p: p.stat().st_mtime, reverse=True)
     return candidates[0]
 
-def stylize_image(content_file, model_name, style_file=None, style_path_str=None):
-
-    if model_name not in VALID_MODELS:
-            raise ValueError("Unknown model name")
+def stylize_image(content_file, style_file=None, style_path_str=None):
+    
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     
     # Load content image
     content_img = Image.open(content_file).convert("RGB")
-    content_tensor = image_to_tensor(content_img)
 
     # Convert style path string to local path and open style image
     if style_file:
         style_img = Image.open(style_file).convert("RGB")
     else:
-        style_path_rel = style_path_str.lstrip('/')
-        style_path = Path(__file__).resolve().parent.parent / "transfer" / Path(style_path_rel)
-        style_img = Image.open(style_path).convert("RGB")
-        
-    style_tensor = image_to_tensor(style_img)
-    
-    model_base_path = Path(__file__).resolve().parent.parent / "style_transfer"
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    
+        style_name = Path(style_path_str).name
+        style_path = PREDEFINED_ROOT / style_name
+        style_img = None
 
-    if model_name == "johnson_fast_style":
-        # Extract base name (e.g., 'candy' from 'candy.jpg')
-        if not style_path_str:
-            raise ValueError("Johnson model requires predefined style path")
-    
+    if style_path_str:
         model_path = find_binary_for_style(str(style_path.stem))
-        
-        if not model_path or not model_path.exists():
-            raise FileNotFoundError(f"Model weights not found: {style_path.stem, model_path}")
         
         model = JohnsonStyleTransferModel(device=device)
         model.load_model(model_path)
     else:
-        
         model = LinearStyleTransferModel(device=device)
-        model.load_model(model_base_path)
+        model.load_model(MODEL_ROOT)
 
-    output_tensor = model.stylize(content_tensor, style_tensor)
-    output_image = tensor_to_pil(output_tensor)
-    return output_image
+    output = model.stylize(content_img, style_img)
+    # print(f"output tensor size: {output_tensor.size()}")
+    # output_image = tensor_to_pil(output_tensor)
+    return output
     
 if __name__ == "__main__":
     # PS C:\Users\eldri\My Drive\Monash\Y3S2\FIT3164 Data Science Project 2\MDS13-NST-Application\stylizer> python -m transfer.style_transfer_runner
-    content_file = r'C:\Users\eldri\My Drive\Monash\Y3S2\FIT3164 Data Science Project 2\MDS13-NST-Application\stylizer\transfer\static\images\content-images\figures.jpg'
-    style_path = r'C:\Users\eldri\My Drive\Monash\Y3S2\FIT3164 Data Science Project 2\MDS13-NST-Application\stylizer\transfer\static\images\johnson_fast_style\starry.jpg'
+    content_file = r'C:\Users\eldri\Personal\NST\nst-johnson-main\data\content-images-v1\animal.jpeg'
+    style_path = r'C:\Users\eldri\Personal\eldrick_20251014\stylizer\transfer\static\images\johnson_fast_style\anime.jpg'
     model_name = 'johnson_fast_style'
-    image = stylize_image(content_file, model_name, style_path_str=style_path)
-    image.show()
+    image = stylize_image(content_file, style_path_str=style_path)
+    plt.imshow(image)
+    plt.show()
 

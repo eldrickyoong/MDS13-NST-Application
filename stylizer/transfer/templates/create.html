@@ -1,245 +1,178 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Create Artwork</title>
-    <link rel="stylesheet" href="{% static 'css/create.css' %}">
-    <!-- Link for Google Fonts icons-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Artwork</title>
+  <link rel="stylesheet" href="{% static 'css/create.css' %}">
+  <!-- Link for Google Fonts icons-->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 </head>
+
 <body>
   <div class="container">
-      <div class="sidebar">
 
-          <div class="sidebar-content">
-              <div class="sidebar-logo">
-                  <a href="{% url 'index' %}">
-                      <span class="material-symbols-rounded">style</span>
-                      <span class="menu-label">StyloAI</span>
-                  </a>
-              </div>
+    <div class="sidebar">
 
-              <ul class="menu-list">
-                  <li class="menu-item">
-                      <a href="{% url 'index' %}" class="menu-link">
-                          <span class="material-symbols-rounded">home</span>
-                          <span class="menu-label">Home</span>
-                      </a>
-                  </li>
-                  <li class="menu-item">
-                      <a href="{% url 'create' %}" class="menu-link active">
-                          <span class="material-symbols-rounded">palette</span>
-                          <span class="menu-label">Create</span>
-                      </a>
-                  </li>
-                  <li class="menu-item">
-                      <a href="{% url 'inspiration' %}" class="menu-link">
-                          <span class="material-symbols-rounded">lightbulb_2</span>
-                          <span class="menu-label">Inspiration</span>
-                      </a>
-                  </li>
-                  <li class="menu-item">
-                      <a href="{% url 'gallery' %}" class="menu-link">
-                          <span class="material-symbols-rounded">wall_art</span>
-                          <span class="menu-label">My Gallery</span>
-                      </a>
-                  </li>
-                  <li class="menu-item">
-                      <a href="{% url 'support' %}" class="menu-link">
-                          <span class="material-symbols-rounded">help_center</span>
-                          <span class="menu-label">Support</span>
-                      </a>
-                  </li>
-              </ul>
-              <div class="sidebar-footer">
-                  <a href="{% url 'index' %}">
-                      <span class="material-symbols-rounded">logout</span>
-                      <span>Log out</span>
-                  </a>
-              </div>
-          </div>
+      <div class="sidebar-content">
+        <div class="sidebar-logo">
+          <a href="{% url 'index' %}">
+            <span class="material-symbols-rounded">style</span>
+            <span class="menu-label">StyloAI</span>
+          </a>
+        </div>
 
+        <ul class="menu-list">
+          <li class="menu-item">
+            <a href="{% url 'index' %}" class="menu-link">
+              <span class="material-symbols-rounded">home</span>
+              <span class="menu-label">Home</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'create' %}" class="menu-link active">
+              <span class="material-symbols-rounded">palette</span>
+              <span class="menu-label">Create</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'inspiration' %}" class="menu-link">
+              <span class="material-symbols-rounded">lightbulb_2</span>
+              <span class="menu-label">Inspiration</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'gallery' %}" class="menu-link">
+              <span class="material-symbols-rounded">wall_art</span>
+              <span class="menu-label">My Gallery</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{% url 'support' %}" class="menu-link">
+              <span class="material-symbols-rounded">help_center</span>
+              <span class="menu-label">Support</span>
+            </a>
+          </li>
+        </ul>
+        <div class="sidebar-footer">
+          <a href="{% url 'index' %}">
+            <span class="material-symbols-rounded">logout</span>
+            <span>Log out</span>
+          </a>
+        </div>
       </div>
 
+    </div>
 
-      <!-- Main Content Area -->
-    <main class="main">
+    <div class="center-panel">
 
-      <!-- Center Panel for Uploads & Result -->
-      <div class="center-panel">
+      <!-- Upload Section: Content & Style Images -->
+      <div class="left-column">
 
-        <!-- Upload Section: Content & Style Images -->
-        <div class="upload-section">
-
-          <!-- Content Upload Box -->
-          <div class="upload-card">
-            <div class="card-header">
-              <span>Content</span>
+        <!-- Content Upload Box -->
+        <div class="upload-box">
+          <header>Content Image</header>
+          <input type="file" id="content-upload" class="file-input" accept="image/*" hidden>
+          <div class="inner-box" id="content-box">
+        
+            <div class="upload-display" id="upload-content-display">
+              <span class="material-symbols-rounded upload-icon">Upload</span>
+              <p>Click to Upload Content Image</p>
             </div>
 
-            <div class="upload-area" id="content-box" >
-              <input type="file" id="content-upload" class="file-input" accept="image/*" hidden>
-                <span class="material-symbols-rounded upload-icon">upload</span>
-              <!-- Upload Content Display (shown before upload) -->
-              <div class="upload-inner" id="upload-content-display">
-                <p class="upload-note">Click to upload or drag & drop</p>
-              </div>
+            <!-- Image preview wrapper -->
+            <div class="img-wrapper" style="display: none;" id="preview-container-content">
+              <img id="preview-image-content"/>
+            </div>
 
-              <!-- Preview container (shown after upload) -->
-              <div class="preview-container" id="preview-container-content" style="display: none;">
-                <div class="preview-frame">
-                  <img id="preview-image-content" class="preview" />
-                </div>
-                <p id="file-name-content" class="file-name"></p>
-              </div>
-
-                <!-- Red overlay covering the entire area (including the padding) -->
-              <div class="full-overlay" id="full-overlay-content">
-                <img src="{% static 'icons/cross-red.svg' %}" alt="Remove Icone" />
-                <p class="remove-note">Click to remove image</p>
-              </div>
+            <div class="full-overlay" id="full-overlay-content">
+              <span class="material-symbols-rounded delete-icon">delete</span>
+              <p>Click to remove image</p>
             </div>
           </div>
 
+        
+        </div>
 
-          <!-- Style Upload Box -->
-          <div class="upload-card">
-            <div class="card-header">
-              <span>Style</span>
-              <img
-                src="{% static 'icons/info-white.svg' %}"
-                alt="Style Info"
-                class="info-icon"
-                title="Only certain models support user-uploaded styles."
-              />
+        <!-- Style Image Box -->
+        <div class="upload-box">
+          <header>Style Image</header>
+          <input type="file" id="style-upload" accept="image/*" hidden>
+          <div class="inner-box" id="style-box">
+        
+            <div class="upload-display" id="upload-style-display">
+              <span class="material-symbols-rounded upload-icon">Upload</span>
+              <p>Click to Upload Custom Style or <br>
+                Select Predefined Style
+              </p>
+            </div>
+        
+            <div class="img-wrapper" style="display: none;" id="preview-container-style">
+              <img id="preview-image-style"/>
             </div>
 
-            <div class="upload-area" id="style-box">
-              <input type="file" id="style-upload" hidden>
+            <div class="full-overlay" id="full-overlay-style">
+              <span class="material-symbols-rounded delete-icon">delete</span>
+              <p>Click to remove image</p>
+            </div>
+          </div>
+        
+        </div>
+      </div>
 
-              <!-- Before upload -->
-              <div class="upload-inner" id="upload-style-display">
-                <img src="{% static 'icons/palette-white.svg' %}" alt="Palette Icon" />
-                <p class="upload-note">Click to upload or drag & drop</p>
-              </div>
+      <div id="result-container" class="result-box">
+        <header>Stylized Image</header>
+        <div class="inner-box" id="result-inner-box">
+          <div class="skeleton-loader" id="result-loader"></div>
 
-              <!-- Preview container (shown after style upload)-->
-              <div class="preview-container" id="preview-container-style" style="display: none;">
-                <div class="preview-frame">
-                  <img id="preview-image-style" class="preview" />
-                </div>
+          <div class="result-display">
+            <span class="material-symbols-rounded generate-icon">auto_awesome</span>
+            <p>Stylized images will appear here</p>
+          </div>
 
-                <p id="file-name-style" class="file-name"></p>
-              </div>
-
-              <!-- Red overlay covering the entire area (including the padding) -->
-              <div class="full-overlay" id="full-overlay-style">
-                <img src="{% static 'icons/cross-red.svg' %}" alt="Remove Icon" />
-                <p class="remove-note">Click to remove image</p>
-              </div>
+          <div class="img-wrapper" style="display: none;" id="preview-container-result">
+            <img id="preview-image-result"/>
+          </div>
+          
+          <div class="result-overlay">
+            <div class="button-container">
+              <button type="button" class="btn-action" onclick="downloadResult()">
+                <span class="material-symbols-rounded">download</span>
+              </button>
+              <button type="button" class="btn-action" onclick="saveToGallery()">
+                <span class="material-symbols-rounded">bookmark_add</span>
+              </button>
             </div>
           </div>
         </div>
 
-        <!-- Stylized Output Result -->
-        <div id="result-container" class="result-container">
-          <div class="result-title">Stylized Result</div>
-
-          <div class="result-area" id="result-box">
-            <img id="stylized-image" alt="Generated artwork" hidden/>
-          </div>
-        </div>
-      </div>
-
-      <!-- Customization Sidebar -->
-      <div class="customize-panel">
-        <div class="customize-content">
-
-          <h3 class="panel-header">Output customization</h3>
-
-          <!-- Output Size Slider -->
-          <!-- <div class="section">
-            <p>Size (px)</p>
-            <div class="slider-group">
-              <label for="dimension-slider">Dimension</label>
-              <input type="range" id="dimension-slider" min="256" max="1024" step="32" value="512" />
-              <input type="number" id="dimension-value" value="512" readonly />
-            </div>
-          </div> -->
-
-          <!-- Output Quality Selection -->
-          <div class="section">
-            <p>Output Quality</p>
-            <div class="custom-dropdown" id="quality-dropdown" tabindex="0" role="listbox" aria-activedescendant="quality-1">
-              <div class="dropdown-selected" id="selected-quality">Standard</div>
-              <ul class="dropdown-options" id="quality-options">
-                <li class="dropdown-option" id="quality-0" data-value="360p">Standard</li>
-                <!-- <li class="dropdown-option selected" id="quality-1" data-value="720p">720p</li> -->
-                <li class="dropdown-option" id="quality-2" data-value="1080p">Enhanced</li>
-              </ul>
-              <img class="dropdown-icon" src="{% static 'icons/angle-small-left-white.svg' %}" alt="Dropdown arrow">
-            </div>
-            <!-- Hidden actual input to store the value -->
-            <input type="hidden" id="selected-quality-value" name="quality_value" value="720p">
-          </div>
-
-          <!-- Model Selection -->
-          <div class="section">
-            <p>Models</p>
-            <div class="custom-dropdown" id="model-dropdown" tabindex="0" role="listbox" aria-activedescendant="model-0">
-              <div class="dropdown-selected" id="selected-model">Single-Style Model</div>
-              <ul class="dropdown-options" id="model-options">
-                <li class="dropdown-option selected" id="model-0" data-value="johnson_fast_style">Single-Style Model</li>
-                <li class="dropdown-option" id="model-2" data-value="linear_fast_style">Any-Style Model</li>
-              </ul>
-              <img class="dropdown-icon" src="{% static 'icons/angle-small-left-white.svg' %}" alt="Dropdown arrow">
-            </div>
-            <!-- Hidden actual input to store the value -->
-            <input type="hidden" id="selected-model-value" name="model_value" value="johnson_fast_style">
-          </div>
-
-          <!-- Style Gallery Section -->
-          <button class="section-toggle" aria-expanded="false" onclick="toggleStyleSection(this)">
-            <span>Styles</span>
-            <img src="{% static 'icons/angle-small-left-white.svg' %}" alt="Expand Styles" class="expand-icon" />
+        <div class="result-actions">
+          <button type="button" class="btn-generate" onclick="generateStylizedImage()">
+            <p>Stylize Image</p>
           </button>
-
-          <div class="style-gallery-wrapper collapsed" id="style-gallery">
-            <div class="style-gallery"></div>
-          </div>
-
-          <input type="hidden" name="style_path" id="selected-style-path" />
-        </div>
-
-        <!-- Generate and Clear Buttons -->
-        <div class="customize-footer">
-          <button type="button" class="generate" onclick="generateStylizedImage()">Generate</button>
-          <button type="button" class="clear-btn" onclick="confirmClear()">Clear</button>
         </div>
       </div>
 
-    </main>
-  </div>
+    </div>
 
-  <!-- JavaScript -->
-  <script src="{% static 'js/script.js' %}"></script>
+    <div class="style-sidebar">
 
-  <!-- Confirmation Modal -->
-  <div id="clear-modal" class="modal-overlay" style="display: none;">
-    <div class="modal-content">
-      <h4>Clear All Settings?</h4>
-      <p>This will remove all uploads and reset customization. Continue?</p>
-      <div class="modal-buttons">
-        <button onclick="executeClear()">Yes, Clear</button>
-        <button onclick="closeModal()">Cancel</button>
+      <h3 class="panel-header">Predefined Styles</h3>
+
+      <!-- Style Gallery Section -->
+      <div id="style-gallery" class="style-gallery-grid" aria-live="polite">
+        <!-- Thumbnails injected by script.js-->
       </div>
+      <input type="hidden" name="style_path" id="selected-style-path" />
+
     </div>
   </div>
 
+  <script src="{% static 'js/script2.js' %}"></script>
 </body>
+
 </html>

@@ -1,7 +1,9 @@
 import torch
+import torchvision.transforms as transforms
 from style_transfer.linear_style.models import encoder3, encoder4, decoder3, decoder4
 from style_transfer.linear_style.Matrix import MulLayer
 from .base import BaseStyleTransferModel
+
 
 class LinearStyleTransferModel(BaseStyleTransferModel):
     
@@ -32,10 +34,23 @@ class LinearStyleTransferModel(BaseStyleTransferModel):
         self.vgg.to(self.device)
         self.dec.to(self.device)
         self.matrix.to(self.device)
+    
+    def preprocess(self, image):
+        
+        img = super().preprocess(image)
+        transform = transforms.Compose([
+            transforms.ToTensor()
+        ])
+        
+        return transform(img).unsqueeze(0).to(self.device)
       
 
     def stylize(self, content_img_tensor, style_img_tensor):
+        
         with torch.no_grad():
+            self.vgg.eval()
+            self.dec.eval()
+            self.matrix.eval()
             sF = self.vgg(self.preprocess(style_img_tensor))
             cF = self.vgg(self.preprocess(content_img_tensor))
             
@@ -46,4 +61,8 @@ class LinearStyleTransferModel(BaseStyleTransferModel):
 
             output = self.dec(feature)
             return self.postprocess(output.squeeze(0))
+    
+    def postprocess(self, tensor):
+        tensor = tensor.detach().squeeze(0).clamp(0, 1)
+        return transforms.ToPILImage()(tensor.cpu())
           
