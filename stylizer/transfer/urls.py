@@ -8,7 +8,6 @@ urlpatterns = [
     path("inspiration/", views.inspiration, name="inspiration"),
     path("gallery-images/", views.gallery_images, name="gallery-images"),
     path("gallery/", views.gallery, name="gallery"),
-    path("support/", views.support, name="support"),
     path("style-images/", views.style_images, name="style_images"),
     path("stylize/", views.stylize, name="stylize"),
 
