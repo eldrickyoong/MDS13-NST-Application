@@ -437,18 +437,15 @@ form p {
     flex-direction: column; /* stacks icon and text */
     align-items: center;
     justify-content: center;
-    color: black;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: #717070FF;
     text-align: center;
     gap: 10px; /* space between icon and text */
     transition: background 0.3s ease;
     cursor: pointer;
     overflow: hidden;
     border: 2px dashed var(--color-hover-primary);
-
-    p {
-      font-weight: 500;
-      color: rgb(113, 112, 112);
-  }
 }
 
 .inner-box:hover {

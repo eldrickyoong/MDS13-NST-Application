@@ -22,10 +22,6 @@ def inspiration(request):
 def gallery(request):
     return render(request, "gallery.html")
 
-def support(request):
-    return render(request, "support.html")
-
-
 def style_images(request):
     model_name = request.GET.get("model", "johnson_fast_style")
     folder = Path("transfer/static/images") / model_name
