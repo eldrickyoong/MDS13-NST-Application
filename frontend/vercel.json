@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "public": true,
+  "routes": [
+    { "src": "/", "dest": "/public/index.html" },
+    { "src": "/gallery", "dest": "/public/gallery.html" },
+    { "src": "/create", "dest": "/public/create.html" },
+    { "src": "/about", "dest": "/public/about.html" },
+    { "src": "/inspiration", "dest": "/public/inspiration.html" },
+    { "src": "/(css|js|images|icons)/(.*)", "dest": "/public/$1/$2" }
+  ]
+}
