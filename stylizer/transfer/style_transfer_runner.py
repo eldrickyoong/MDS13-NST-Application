@@ -3,16 +3,15 @@ from PIL import Image
 from typing import Optional, List
 import torch
 
-from style_transfer.johnson import JohnsonStyleTransferModel
-from style_transfer.linear import LinearStyleTransferModel
+from style_engine.johnson import JohnsonStyleTransferModel
+from style_engine.linear import LinearStyleTransferModel
 
-BINARIES_ROOT = Path(__file__).resolve().parent.parent / "style_transfer" / "johnson_fast_style" / "binaries"
 PREDEFINED_ROOT = Path(__file__).resolve().parent.parent / "transfer" / "static" / "images" / "johnson_fast_style"
-MODEL_ROOT = Path(__file__).resolve().parent.parent / "style_transfer"
+MODEL_ROOT = Path(__file__).resolve().parent.parent / "style_engine" / "backends" / "weights"
 
 def find_binary_for_style(
     style_name: str,
-    binaries_root: Path = BINARIES_ROOT,
+    models_root = MODEL_ROOT,
     suffix: str = ".pth",
 ) -> Optional[Path]:
     """
@@ -21,18 +20,16 @@ def find_binary_for_style(
     If multiple matches exist, pick the most recently modified file.
     Returns None if nothing matches.
     """
-    if not binaries_root.exists():
-        raise ValueError(f'{binaries_root} does not exist')
+    if not models_root.exists():
+        raise ValueError(f'{models_root} does not exist')
     
     candidates: List[Path] = [
-        p for p in binaries_root.glob(f"*{suffix}")
+        p for p in models_root.glob(f"*{suffix}")
         if style_name.lower() in p.stem.lower()
     ]
     if not candidates:
         return None
-
-    # Pick the newest by mtime
-    candidates.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+    
     return candidates[0]
 
 def stylize_image(content_file, style_file=None, style_path_str: None | str = None):

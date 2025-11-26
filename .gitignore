@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Django
+db.sqlite3
+
+# Model Weights
+*.pth
+
+# css
+*.css.map

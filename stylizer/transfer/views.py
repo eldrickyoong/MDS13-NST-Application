@@ -13,12 +13,6 @@ def index(request):
 def create(request):
     return render(request, "create.html")
 
-def about(request):
-    return render(request, "about.html")
-
-def inspiration(request):
-    return render(request, "inspiration.html")
-
 def gallery(request):
     return render(request, "gallery.html")
 
@@ -58,11 +52,11 @@ def stylize(request):
     return HttpResponse("Invalid request", status=405)
 
 def gallery_images(request):
-    """Return list of all image paths from /static/images/user_gallery"""
-    folder = Path(settings.BASE_DIR) / "transfer" / "static" / "images" / "user_gallery"
+    """Return list of all image paths from /media/user_gallery"""
+    folder = Path(settings.BASE_DIR) / "media" / "user_gallery"
     try:
         image_files = [
-            f"/static/images/user_gallery/{f.name}"
+            f"/media/user_gallery/{f.name}"
             for f in folder.iterdir()
             if f.suffix.lower() in [".jpg", ".jpeg", ".png", ".webp"]
         ]
