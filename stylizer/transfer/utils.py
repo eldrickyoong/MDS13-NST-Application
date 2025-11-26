@@ -3,15 +3,15 @@ from typing import Optional, List
 from PIL import Image
 import torch
 
-from stylizer.style_engine.johnson import JohnsonStyleTransferModel
-from stylizer.style_engine.linear import LinearStyleTransferModel
+from style_engine.johnson import JohnsonStyleTransferModel
+from style_engine.linear import LinearStyleTransferModel
 
 PREDEFINED_ROOT = Path(__file__).resolve().parent.parent / "transfer" / "static" / "images" / "johnson_fast_style"
 MODEL_ROOT = Path(__file__).resolve().parent.parent / "style_engine" / "backends" / "weights"
 
 def find_binary_for_style(
     style_name: str,
-    models_root = MODEL_ROOT,
+    models_root = MODEL_ROOT / 'johnson',
     suffix: str = ".pth",
 ) -> Optional[Path]:
     """
@@ -54,7 +54,7 @@ def stylize_image(content_file, style_file=None, style_path_str: None | str = No
         model.load_model(model_path)
     else:
         model = LinearStyleTransferModel(device=device)
-        model.load_model(MODEL_ROOT)
+        model.load_model(MODEL_ROOT / 'linear')
 
     output = model.stylize(content_img, style_img)
     return output
