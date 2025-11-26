@@ -1,3 +1,10 @@
-flask
-numpy
-pillow
+Django==5.2.7
+Flask==3.1.2
+matplotlib==3.10.7
+numpy==2.3.4
+opencv_contrib_python==4.12.0.88
+opencv_python_headless==4.12.0.88
+Pillow==12.0.0
+Requests==2.32.5
+torch==2.7.0+cu128
+torchvision==0.22.0+cu128
