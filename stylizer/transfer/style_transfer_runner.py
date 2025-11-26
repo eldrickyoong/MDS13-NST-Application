@@ -1,12 +1,10 @@
 from pathlib import Path
-from django.conf import settings
 from PIL import Image
 from typing import Optional, List
-import matplotlib.pyplot as plt
+import torch
+
 from style_transfer.johnson import JohnsonStyleTransferModel
 from style_transfer.linear import LinearStyleTransferModel
-import cv2 as cv
-import torch
 
 BINARIES_ROOT = Path(__file__).resolve().parent.parent / "style_transfer" / "johnson_fast_style" / "binaries"
 PREDEFINED_ROOT = Path(__file__).resolve().parent.parent / "transfer" / "static" / "images" / "johnson_fast_style"
@@ -37,7 +35,7 @@ def find_binary_for_style(
     candidates.sort(key=lambda p: p.stat().st_mtime, reverse=True)
     return candidates[0]
 
-def stylize_image(content_file, style_file=None, style_path_str=None):
+def stylize_image(content_file, style_file=None, style_path_str: None | str = None):
     
     device = "cuda" if torch.cuda.is_available() else "cpu"
     
@@ -62,16 +60,5 @@ def stylize_image(content_file, style_file=None, style_path_str=None):
         model.load_model(MODEL_ROOT)
 
     output = model.stylize(content_img, style_img)
-    # print(f"output tensor size: {output_tensor.size()}")
-    # output_image = tensor_to_pil(output_tensor)
     return output
-    
-if __name__ == "__main__":
-    # PS C:\Users\eldri\My Drive\Monash\Y3S2\FIT3164 Data Science Project 2\MDS13-NST-Application\stylizer> python -m transfer.style_transfer_runner
-    content_file = r'C:\Users\eldri\Personal\NST\nst-johnson-main\data\content-images-v1\animal.jpeg'
-    style_path = r'C:\Users\eldri\Personal\eldrick_20251014\stylizer\transfer\static\images\johnson_fast_style\anime.jpg'
-    model_name = 'johnson_fast_style'
-    image = stylize_image(content_file, style_path_str=style_path)
-    plt.imshow(image)
-    plt.show()
 
