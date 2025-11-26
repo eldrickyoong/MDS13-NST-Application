@@ -1,10 +1,10 @@
 from pathlib import Path
-from PIL import Image
 from typing import Optional, List
+from PIL import Image
 import torch
 
-from style_engine.johnson import JohnsonStyleTransferModel
-from style_engine.linear import LinearStyleTransferModel
+from stylizer.style_engine.johnson import JohnsonStyleTransferModel
+from stylizer.style_engine.linear import LinearStyleTransferModel
 
 PREDEFINED_ROOT = Path(__file__).resolve().parent.parent / "transfer" / "static" / "images" / "johnson_fast_style"
 MODEL_ROOT = Path(__file__).resolve().parent.parent / "style_engine" / "backends" / "weights"
@@ -31,7 +31,7 @@ def find_binary_for_style(
         return None
     
     return candidates[0]
-
+  
 def stylize_image(content_file, style_file=None, style_path_str: None | str = None):
     
     device = "cuda" if torch.cuda.is_available() else "cpu"

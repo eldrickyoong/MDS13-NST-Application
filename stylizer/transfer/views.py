@@ -2,10 +2,9 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse, FileResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-from PIL import Image
 from pathlib import Path
 import io
-from .style_transfer_runner import stylize_image 
+from .utils import stylize_image 
 
 def index(request):
     return render(request, "index.html")
