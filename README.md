@@ -260,7 +260,7 @@ MDS-13-Application/
 
 ## 📝 Acknowledgements
 
-The development of this project was made possible through the contributions of the open-source communite and prior research in neural style transfer. The following repositories and authors provided essential reference implementations that significantly informed and supported the model integration in this work:
+The development of this project was made possible through the contributions of the open-source community and prior research in neural style transfer. The following repositories and authors provided essential reference implementations that significantly informed and supported the model integration in this work:
 
 - [Linear Transformation Network - PyTorch Implementation](https://github.com/sunshineatnoon/LinearStyleTransfer) by [sunshineatnoon](https://github.com/sunshineatnoon). This implementation served as the primary reference for integrating the Linear Transformation Network architecture used for custom, user-uploaded style images.
 - [Johnson Fast Style Transfer - PyTorch Implementation](https://github.com/gordicaleksa/pytorch-neural-style-transfer-johnson) by [gordicaleksa](https://github.com/gordicaleksa). This repository informed the structure and deployment of multiple predefined style models based on the Johnson architecture.
