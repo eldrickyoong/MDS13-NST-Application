@@ -1,4 +1,8 @@
 """
+    This module includes code adapted from external open-source repositories.
+    See `README.md` (Attribution section) for full details.
+"""
+"""
     Modifications to the original J.Johnson's architecture:
         1. Instance normalization is used instead of batch normalization *
         2. Instead of learned up-sampling use nearest-neighbor up-sampling followed by convolution **

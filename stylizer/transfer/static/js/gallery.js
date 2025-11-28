@@ -1,5 +1,6 @@
 // static/js/gallery.js
 
+// Populates gallery page based on images in /media/user_gallery/
 document.addEventListener("DOMContentLoaded", () => {
   const galleryBody = document.getElementById("galleryBody");
   const galleryGrid = document.getElementById("style-gallery");

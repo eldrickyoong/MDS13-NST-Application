@@ -1,4 +1,8 @@
-import torch
+"""
+    This module includes code adapted from external open-source repositories.
+    See `README.md` (Acknowledgement section) for full details.
+"""
+
 import torch.nn as nn
 
 class encoder3(nn.Module):
